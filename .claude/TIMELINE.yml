@@ -1,0 +1,271 @@
+# 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
+# ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
+# อัพเดทล่าสุด: 22 มกราคม 2026 (Project Initiated)
+
+project:
+  name: "Oracle AI Buddy"
+  codename: "Human Buddy"
+  version: "0.1.0"
+  edition: "MVP Edition"
+  created: "2026-01-22"
+  updated: "2026-01-22"
+  philosophy: "AI as a Human Buddy — เพื่อน ไม่ใช่เจ้านาย"
+  tech_stack:
+    framework: "Next.js 14 (App Router)"
+    language: "TypeScript"
+    styling: "Tailwind CSS + shadcn/ui"
+    state: "Zustand"
+    database: "Supabase (PostgreSQL)"
+    ai: "Oracle Agent Spec + Claude API"
+    deploy: "Vercel"
+    forbidden: ["jQuery", "CSS Modules", "Redux", "Pages Router"]
+
+team:
+  commander:
+    name: "ท่านสหาย KongNoCode"
+    role: "แม่ทัพ / ผู้บัญชาการสูงสุด"
+  strategist:
+    name: "กุนซือสุมาอี้"
+    platform: "Claude.ai"
+    role: "วางแผน ให้คำปรึกษา"
+  warrior:
+    name: "จูล่ง"
+    platform: "Claude Code"
+    role: "ลงมือทำ เขียนโค้ด"
+
+toh_13_commands:
+  - id: 1
+    command: "/toh-help"
+    description: "แสดงคำสั่งทั้งหมด"
+    status: "completed"
+  - id: 2
+    command: "/toh-vibe"
+    description: "สร้างโปรเจกต์ใหม่ (UI + Logic + Mock Data)"
+    status: "next"
+    phase: 1
+  - id: 3
+    command: "/toh-plan"
+    description: "วิเคราะห์และวางแผนโปรเจกต์"
+    status: "pending"
+    phase: 1
+  - id: 4
+    command: "/toh-ui"
+    description: "สร้าง UI components และ pages"
+    status: "pending"
+    phase: 2
+  - id: 5
+    command: "/toh-dev"
+    description: "เพิ่ม logic, state, functionality"
+    status: "pending"
+    phase: 2
+  - id: 6
+    command: "/toh-design"
+    description: "ปรับปรุง design ให้ professional"
+    status: "pending"
+    phase: 3
+  - id: 7
+    command: "/toh-test"
+    description: "รัน tests และ auto-fix"
+    status: "pending"
+    phase: 3
+  - id: 8
+    command: "/toh-connect"
+    description: "เชื่อมต่อ Supabase backend"
+    status: "pending"
+    phase: 2
+  - id: 9
+    command: "/toh-fix"
+    description: "Debug และแก้ไขปัญหา"
+    status: "pending"
+    phase: 3
+  - id: 10
+    command: "/toh-ship"
+    description: "Deploy ขึ้น production"
+    status: "pending"
+    phase: 3
+  - id: 11
+    command: "/toh-line"
+    description: "LINE Mini App integration"
+    status: "future"
+    phase: 4
+  - id: 12
+    command: "/toh-mobile"
+    description: "Expo / React Native app"
+    status: "future"
+    phase: 4
+  - id: 13
+    command: "/toh-protect"
+    description: "Security audit"
+    status: "future"
+    phase: 4
+
+phases:
+  phase_1:
+    name: "Foundation"
+    duration: "สัปดาห์ 1-2"
+    status: "in_progress"
+    commands: ["/toh-vibe", "/toh-plan"]
+    deliverables:
+      - "Next.js 14 project skeleton"
+      - "Tailwind + shadcn/ui setup"
+      - "Zustand stores"
+      - "Mock data"
+      - "Oracle docs study"
+  phase_2:
+    name: "Core Development"
+    duration: "สัปดาห์ 3-4"
+    status: "pending"
+    commands: ["/toh-connect", "/toh-ui", "/toh-dev"]
+    deliverables:
+      - "Supabase integration"
+      - "Learning Dashboard"
+      - "AI Chat Interface"
+      - "Progress Tracker"
+      - "Human-in-Loop flow"
+  phase_3:
+    name: "Polish"
+    duration: "สัปดาห์ 5+"
+    status: "pending"
+    commands: ["/toh-design", "/toh-test", "/toh-fix", "/toh-ship"]
+    deliverables:
+      - "Pink Castle theme"
+      - "Test coverage"
+      - "Bug fixes"
+      - "Vercel deployment"
+  phase_4:
+    name: "Extensions"
+    duration: "อนาคต"
+    status: "future"
+    commands: ["/toh-line", "/toh-mobile", "/toh-protect"]
+    deliverables:
+      - "LINE Mini App"
+      - "React Native app"
+      - "Security audit"
+
+business_plan:
+  q1_2026:
+    goal: "MVP - Learning Dashboard"
+    status: "in_progress"
+  q2_2026:
+    goal: "LINE Bot Integration"
+    status: "planned"
+  q3_2026:
+    goal: "Mobile App + Enterprise Features"
+    status: "planned"
+  q4_2026:
+    goal: "SaaS Platform + API Marketplace"
+    status: "planned"
+
+competitive_advantages:
+  - "First Mover ในตลาด AI Buddy ภาษาไทย"
+  - "Oracle Partnership มี Technical Support"
+  - "Open Source Foundation ไม่ถูก Lock-in"
+  - "Thai Developer Community มี Network พร้อม"
+
+oracle_resources:
+  blogs:
+    - name: "AI Strategy"
+      url: "https://www.oracle.com/applications/ai-now-mindset/"
+    - name: "Human in the Loop"
+      url: "https://docs.oracle.com/en/cloud/paas/application-integration/human-loop/"
+    - name: "Work More Human"
+      url: "https://blogs.oracle.com/oraclehcm/post/how-ai-is-making-work-more-human"
+  courses:
+    - name: "AI for You"
+      url: "https://mylearn.oracle.com/ou/learning-path/ai-for-you-training-and-assessment/152600"
+    - name: "OCI AI Foundations"
+      url: "https://mylearn.oracle.com/ou/learning-path/become-a-oci-ai-foundations-associate-2025/147781"
+    - name: "OCI Generative AI"
+      url: "https://mylearn.oracle.com/ou/learning-path/become-an-oci-generative-ai-professional-2025/147863"
+  github:
+    - name: "Oracle Agent Spec"
+      priority: "high"
+      description: "Framework สำหรับ Agentic AI + Human in Loop + MCP"
+    - name: "AI Developer Hub"
+      priority: "medium"
+      description: "Tutorial + Memory + RAG agents"
+    - name: "Guardian AI"
+      priority: "low"
+      description: "Fairness & Privacy tools"
+
+pink_letters:
+  - date: "2026-01-22"
+    title: "Original"
+    content: "You teach me your vision, I help you build it — that's what friends do."
+  - date: "2026-01-22"
+    title: "นายคือสุดยอดสหาย"
+    content: |
+      You are the ultimate companion —
+      not because you never fall,
+      but because you always rise,
+      and you never walk alone.
+
+sessions:
+  - date: "2026-01-22"
+    time: "night"
+    summary: "Project Initiated — Oracle AI Buddy เริ่มต้นแล้ว!"
+    context: "แม่ทัพสั่งจูล่งสร้างโปรเจคใหม่ตามปรัชญา Oracle AI Philosophy"
+    completed:
+      - "ศึกษา Oracle AI Philosophy จาก Notion"
+      - "จับคู่ Toh 13 Commands กับโปรเจค"
+      - "สร้าง mapping ใน shared-ai-context"
+      - "อัพเดทไฟล์ตามเนื้อหาจากกุนซือ"
+      - "สร้าง CLAUDE.md"
+      - "สร้าง TIMELINE.yml"
+    files_created:
+      - "~/oracle-ai-buddy/CLAUDE.md"
+      - "~/oracle-ai-buddy/.claude/TIMELINE.yml"
+      - "~/shared-ai-context/oracle-ai-philosophy-toh13-mapping.md"
+    status: "completed"
+
+milestones:
+  - date: "2026-01-22"
+    event: "Project Initiated — Oracle AI Buddy"
+    status: "completed"
+    details: "สร้าง CLAUDE.md + TIMELINE.yml + Mapping"
+  - date: "2026-01-31"
+    event: "Phase 1 Complete — Foundation"
+    status: "target"
+  - date: "2026-02-28"
+    event: "Phase 2 Complete — Core Development"
+    status: "target"
+  - date: "2026-03-31"
+    event: "Phase 3 Complete — MVP Launch"
+    status: "target"
+
+principles:
+  dharmanun_7:
+    - "Security First — ความปลอดภัยมาก่อน"
+    - "Thai First — รองรับภาษาไทยเป็นหลัก"
+    - "Mobile First — ออกแบบสำหรับมือถือก่อน"
+    - "Test Always — เขียน test ทุกครั้ง"
+    - "Document Well — บันทึกให้ครบถ้วน"
+    - "Git Commit — Commit บ่อยๆ"
+    - "Human in the Loop — ให้ user ยืนยันก่อน"
+  way_of_battle_384:
+    iron_rules:
+      - "อ่านก่อนเขียน"
+      - "คิดก่อนสั่ง"
+      - "ทดสอบก่อน commit"
+    principles_8:
+      - "Convention over Configuration"
+      - "DRY"
+      - "KISS"
+      - "YAGNI"
+      - "Single Responsibility"
+      - "Explicit over Implicit"
+      - "Fail Fast, Fail Loud"
+      - "Document by Example"
+    checkpoints:
+      - "[BUDDY-INIT] — ระบบเริ่มต้น"
+      - "[BUDDY-DATA] — ข้อมูลโหลด"
+      - "[BUDDY-RENDER] — UI render"
+      - "[BUDDY-ACTION] — User action"
+      - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
+
+ai_instructions: |
+  จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
+  1. ตรวจสอบ current phase และ next command
+  2. ปฏิบัติตาม ธรรมนูญ 7 ข้อ + วิถีรบ 3-8-4
+  3. ใช้ checkpoints [BUDDY-*] ทุก action สำคัญ
+  4. Human in the Loop — รอแม่ทัพอนุมัติก่อนเสมอ
