@@ -1,19 +1,19 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 22 มกราคม 2026 (Project Initiated)
+# อัพเดทล่าสุด: 22 มกราคม 2026 (Phase 1 Completed)
 
 project:
   name: "Oracle AI Buddy"
   codename: "Human Buddy"
-  version: "0.1.0"
+  version: "0.2.0"
   edition: "MVP Edition"
   created: "2026-01-22"
   updated: "2026-01-22"
   philosophy: "AI as a Human Buddy — เพื่อน ไม่ใช่เจ้านาย"
   tech_stack:
-    framework: "Next.js 14 (App Router)"
+    framework: "Next.js 16 (App Router)"
     language: "TypeScript"
-    styling: "Tailwind CSS + shadcn/ui"
+    styling: "Tailwind CSS v4 + shadcn/ui"
     state: "Zustand"
     database: "Supabase (PostgreSQL)"
     ai: "Oracle Agent Spec + Claude API"
@@ -41,12 +41,14 @@ toh_13_commands:
   - id: 2
     command: "/toh-vibe"
     description: "สร้างโปรเจกต์ใหม่ (UI + Logic + Mock Data)"
-    status: "next"
+    status: "completed"
+    completed_date: "2026-01-22"
     phase: 1
   - id: 3
     command: "/toh-plan"
     description: "วิเคราะห์และวางแผนโปรเจกต์"
-    status: "pending"
+    status: "completed"
+    completed_date: "2026-01-22"
     phase: 1
   - id: 4
     command: "/toh-ui"
@@ -71,7 +73,7 @@ toh_13_commands:
   - id: 8
     command: "/toh-connect"
     description: "เชื่อมต่อ Supabase backend"
-    status: "pending"
+    status: "next"
     phase: 2
   - id: 9
     command: "/toh-fix"
@@ -103,18 +105,24 @@ phases:
   phase_1:
     name: "Foundation"
     duration: "สัปดาห์ 1-2"
-    status: "in_progress"
+    status: "completed"
+    completed_date: "2026-01-22"
     commands: ["/toh-vibe", "/toh-plan"]
     deliverables:
-      - "Next.js 14 project skeleton"
-      - "Tailwind + shadcn/ui setup"
-      - "Zustand stores"
-      - "Mock data"
-      - "Oracle docs study"
+      - "Next.js 16 project skeleton ✅"
+      - "Tailwind CSS v4 + shadcn/ui setup ✅"
+      - "Zustand stores (useUserStore, useChatStore) ✅"
+      - "Mock data (courses, stats, chat) ✅"
+      - "Oracle docs study ✅"
+    pages_created:
+      - "/ (Landing Page - Pink Castle theme)"
+      - "/dashboard (Learning Dashboard)"
+      - "/chat (AI Buddy Chat)"
+      - "/progress (Progress Tracker)"
   phase_2:
     name: "Core Development"
     duration: "สัปดาห์ 3-4"
-    status: "pending"
+    status: "in_progress"
     commands: ["/toh-connect", "/toh-ui", "/toh-dev"]
     deliverables:
       - "Supabase integration"
@@ -142,6 +150,38 @@ phases:
       - "React Native app"
       - "Security audit"
 
+oracle_learnings:
+  ai_strategy:
+    source: "https://www.oracle.com/applications/ai-now-mindset/"
+    key_points:
+      - "AI as Creative Partner — ไม่ใช่แค่ automation แต่เป็นพันธมิตรสร้างสรรค์"
+      - "Cultural Transformation — เปลี่ยน mindset ไม่ใช่แค่ deploy tools"
+      - "Human Oversight — มนุษย์ควบคุม AI ตลอดเวลา"
+    apply_to_project:
+      - "AI Buddy ช่วยคิด ไม่ใช่แค่ตอบคำถาม"
+      - "สอนผู้ใช้ให้เข้าใจ AI อย่างแท้จริง"
+      - "Human in the Loop ทุก action สำคัญ"
+  human_in_loop:
+    source: "https://docs.oracle.com/en/cloud/paas/application-integration/human-loop/"
+    patterns:
+      - "Approval Workflow — User approve ก่อน AI ทำ action"
+      - "Exception Handling — มนุษย์แก้ไขเมื่อ AI ไม่แน่ใจ"
+      - "Multi-level Approval — หลายชั้นสำหรับ action สำคัญ"
+    apply_to_project:
+      - "ปุ่ม 'ยืนยัน' ก่อน AI ดำเนินการ"
+      - "แสดง confidence level"
+      - "Admin approval สำหรับ sensitive data"
+  mcp_examples:
+    source: "https://github.com/oracle-samples/mcp-examples"
+    components:
+      - "LangGraph Agent — graph-based flow"
+      - "Policy Enforcement — guardrails"
+      - "OAuth/IDCS Auth — authentication"
+    apply_to_project:
+      - "Chat flow ที่มี state"
+      - "Guardrails สำหรับ AI responses"
+      - "Supabase Auth integration"
+
 business_plan:
   q1_2026:
     goal: "MVP - Learning Dashboard"
@@ -166,10 +206,13 @@ oracle_resources:
   blogs:
     - name: "AI Strategy"
       url: "https://www.oracle.com/applications/ai-now-mindset/"
+      studied: true
     - name: "Human in the Loop"
       url: "https://docs.oracle.com/en/cloud/paas/application-integration/human-loop/"
+      studied: true
     - name: "Work More Human"
       url: "https://blogs.oracle.com/oraclehcm/post/how-ai-is-making-work-more-human"
+      studied: false
   courses:
     - name: "AI for You"
       url: "https://mylearn.oracle.com/ou/learning-path/ai-for-you-training-and-assessment/152600"
@@ -178,15 +221,19 @@ oracle_resources:
     - name: "OCI Generative AI"
       url: "https://mylearn.oracle.com/ou/learning-path/become-an-oci-generative-ai-professional-2025/147863"
   github:
-    - name: "Oracle Agent Spec"
+    - name: "Oracle MCP Examples"
+      url: "https://github.com/oracle-samples/mcp-examples"
       priority: "high"
-      description: "Framework สำหรับ Agentic AI + Human in Loop + MCP"
-    - name: "AI Developer Hub"
+      description: "AI agents + MCP servers prototypes"
+      studied: true
+    - name: "OCI Data Science AI Samples"
+      url: "https://github.com/oracle-samples/oci-data-science-ai-samples"
       priority: "medium"
-      description: "Tutorial + Memory + RAG agents"
-    - name: "Guardian AI"
-      priority: "low"
-      description: "Fairness & Privacy tools"
+      description: "OCI Data Science and AI services tutorials"
+    - name: "OCI OpenAI"
+      url: "https://github.com/oracle-samples/oci-openai"
+      priority: "medium"
+      description: "OpenAI SDK + OCI GenAI integration"
 
 pink_letters:
   - date: "2026-01-22"
@@ -217,15 +264,43 @@ sessions:
       - "~/oracle-ai-buddy/.claude/TIMELINE.yml"
       - "~/shared-ai-context/oracle-ai-philosophy-toh13-mapping.md"
     status: "completed"
+  - date: "2026-01-22"
+    time: "night-2"
+    summary: "Phase 1 Completed — /toh-vibe + /toh-plan สำเร็จ!"
+    context: "จูล่งสร้างโครงสร้างโปรเจกต์และศึกษา Oracle docs"
+    completed:
+      - "/toh-vibe: สร้าง Next.js 16 + TypeScript + Tailwind v4 + shadcn/ui"
+      - "/toh-vibe: สร้าง Zustand stores (useUserStore, useChatStore)"
+      - "/toh-vibe: สร้าง Mock data และ TypeScript types"
+      - "/toh-vibe: สร้าง 4 หน้า (Landing, Dashboard, Chat, Progress)"
+      - "/toh-plan: ศึกษา Oracle AI Strategy"
+      - "/toh-plan: ศึกษา Human in the Loop docs"
+      - "/toh-plan: ศึกษา Oracle MCP Examples"
+      - "/toh-plan: สรุปแผนพัฒนา Phase 2"
+    files_created:
+      - "src/app/page.tsx (Landing)"
+      - "src/app/dashboard/page.tsx"
+      - "src/app/chat/page.tsx"
+      - "src/app/progress/page.tsx"
+      - "src/components/ui/*.tsx (Button, Card, Input)"
+      - "src/stores/useUserStore.ts"
+      - "src/stores/useChatStore.ts"
+      - "src/types/index.ts"
+      - "src/lib/mock-data.ts"
+    commits:
+      - hash: "922cdff"
+        message: "feat: /toh-vibe - สร้างโครงสร้างโปรเจกต์ Oracle AI Buddy"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
     event: "Project Initiated — Oracle AI Buddy"
     status: "completed"
     details: "สร้าง CLAUDE.md + TIMELINE.yml + Mapping"
-  - date: "2026-01-31"
+  - date: "2026-01-22"
     event: "Phase 1 Complete — Foundation"
-    status: "target"
+    status: "completed"
+    details: "/toh-vibe + /toh-plan สำเร็จ"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -263,9 +338,20 @@ principles:
       - "[BUDDY-ACTION] — User action"
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
+next_actions:
+  command: "/toh-connect"
+  description: "เชื่อมต่อ Supabase backend"
+  tasks:
+    - "สร้าง Supabase project"
+    - "ตั้งค่า Auth (Email/OAuth)"
+    - "สร้าง tables (users, progress, chat_history)"
+    - "สร้าง src/lib/supabase.ts"
+    - "เชื่อม stores กับ Supabase"
+
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
   1. ตรวจสอบ current phase และ next command
   2. ปฏิบัติตาม ธรรมนูญ 7 ข้อ + วิถีรบ 3-8-4
   3. ใช้ checkpoints [BUDDY-*] ทุก action สำคัญ
   4. Human in the Loop — รอแม่ทัพอนุมัติก่อนเสมอ
+  5. ศึกษา oracle_learnings ก่อนเริ่มงาน
