@@ -5,8 +5,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white dark:from-zinc-900 dark:to-black">
+      {/* Nav */}
+      <nav className="container mx-auto flex items-center justify-between px-4 py-4">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">🐉</span>
+          <span className="font-bold text-zinc-900 dark:text-white">Oracle AI Buddy</span>
+        </div>
+        <Link href="/login">
+          <Button variant="outline">เข้าสู่ระบบ</Button>
+        </Link>
+      </nav>
+
       {/* Hero Section */}
-      <header className="container mx-auto px-4 py-16 text-center">
+      <header className="container mx-auto px-4 py-12 text-center">
         <div className="mb-8">
           <span className="text-6xl">🐉</span>
         </div>
