@@ -84,12 +84,12 @@ oracle-ai-buddy/
 ## 🗺️ Roadmap
 
 ### Phase 1: Foundation (Week 1-2)
-- [ ] Project setup (Next.js 14 + TypeScript)
-- [ ] UI components (Tailwind + shadcn/ui)
-- [ ] Mock data
+- [x] Project setup (Next.js 14 + TypeScript)
+- [x] UI components (Tailwind + shadcn/ui)
+- [x] Mock data
 
 ### Phase 2: Core Development (Week 3-4)
-- [ ] Supabase integration
+- [x] Supabase integration ✅
 - [ ] Learning Dashboard
 - [ ] AI Chat Interface
 - [ ] Progress Tracker
