@@ -1,6 +1,6 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-connect Completed)
+# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-ui Dashboard Completed)
 
 project:
   name: "Oracle AI Buddy"
@@ -323,6 +323,38 @@ sessions:
       - hash: "d3f7772"
         message: "feat: /toh-connect - เชื่อมต่อ Supabase + Auth system"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-2"
+    summary: "/toh-ui Dashboard — UI Components สำเร็จ!"
+    context: "แม่ทัพสั่งจูล่งปรับปรุง Dashboard UI"
+    completed:
+      - "ติดตั้ง shadcn/ui: Badge, Avatar, Skeleton, Progress, Tabs"
+      - "สร้าง DashboardHeader component (user info + greeting)"
+      - "สร้าง StatsCard component (stats + loading state)"
+      - "สร้าง CourseCard component (progress bar + badges)"
+      - "สร้าง QuickActions component (shortcuts)"
+      - "ปรับปรุง Dashboard page layout (3+1 columns)"
+      - "เชื่อม Supabase learning_progress"
+      - "เพิ่ม loading skeletons"
+      - "Build test — 100% PASS"
+    files_created:
+      - "src/components/ui/badge.tsx"
+      - "src/components/ui/avatar.tsx"
+      - "src/components/ui/skeleton.tsx"
+      - "src/components/ui/progress.tsx"
+      - "src/components/ui/tabs.tsx"
+      - "src/components/dashboard/DashboardHeader.tsx"
+      - "src/components/dashboard/StatsCard.tsx"
+      - "src/components/dashboard/CourseCard.tsx"
+      - "src/components/dashboard/QuickActions.tsx"
+      - "src/components/dashboard/index.ts"
+    files_updated:
+      - "src/app/dashboard/page.tsx"
+      - "package.json"
+    commits:
+      - hash: "216daa9"
+        message: "feat: /toh-ui Dashboard - ปรับปรุง UI components"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -337,6 +369,10 @@ milestones:
     event: "/toh-connect Complete — Supabase Ready"
     status: "completed"
     details: "Supabase integration 100% PASS"
+  - date: "2026-01-23"
+    event: "/toh-ui Dashboard Complete"
+    status: "completed"
+    details: "Dashboard UI components + Supabase integration"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -376,12 +412,13 @@ principles:
 
 next_actions:
   command: "/toh-ui"
-  description: "สร้าง UI components และ pages"
-  tasks:
-    - "ปรับปรุง Learning Dashboard"
-    - "สร้าง AI Chat Interface"
-    - "สร้าง Progress Tracker"
-    - "เชื่อม UI กับ Supabase data"
+  description: "สร้าง UI components และ pages (ต่อ)"
+  completed:
+    - "✅ Learning Dashboard"
+  remaining:
+    - "AI Chat Interface"
+    - "Progress Tracker"
+    - "Course Detail Page"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
