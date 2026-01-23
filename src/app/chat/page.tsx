@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChatMessage, ChatInput, ChatSidebar } from '@/components/chat';
+import { ApprovalCard, ActionType } from '@/components/approval';
 import { useUserStore } from '@/stores/useUserStore';
 import { useChatStore } from '@/stores/useChatStore';
 import { mockWelcomeMessage } from '@/lib/mock-data';
@@ -17,6 +18,17 @@ interface ChatAPIResponse {
     output_tokens: number;
   };
   error?: string;
+}
+
+// Pending approval type
+interface PendingApproval {
+  id: string;
+  actionType: ActionType;
+  title: string;
+  description: string;
+  details?: string[];
+  confidence: number;
+  onApprove: () => void;
 }
 
 export default function ChatPage() {
@@ -41,7 +53,118 @@ export default function ChatPage() {
   const [showSidebar, setShowSidebar] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFallbackMode, setIsFallbackMode] = useState(false);
+  const [pendingApproval, setPendingApproval] = useState<PendingApproval | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Detect if user is requesting an action that needs approval
+  const detectActionRequest = (input: string): PendingApproval | null => {
+    const lowerInput = input.toLowerCase();
+
+    // Detect lesson completion request
+    if (lowerInput.includes('เรียนจบ') || lowerInput.includes('จบบท') || lowerInput.includes('complete lesson')) {
+      return {
+        id: crypto.randomUUID(),
+        actionType: 'complete_lesson',
+        title: 'บันทึกการเรียนจบบท',
+        description: 'AI Buddy ต้องการบันทึกว่าคุณเรียนจบบทนี้แล้ว',
+        details: [
+          'อัพเดทความคืบหน้าใน Dashboard',
+          'เพิ่ม XP และ streak',
+          'ปลดล็อคบทถัดไป',
+        ],
+        confidence: 85,
+        onApprove: () => {
+          addMessage({
+            id: crypto.randomUUID(),
+            role: 'assistant',
+            content: `✅ **บันทึกสำเร็จ!**
+
+เยี่ยมมากครับ! ผมได้บันทึกว่าคุณเรียนจบบทนี้แล้ว
+
+📊 **อัพเดท:**
+- ความคืบหน้า +1 บท
+- XP +50
+- Streak ยังคงอยู่!
+
+พร้อมเรียนบทถัดไปหรือยังครับ? 🐉`,
+            timestamp: new Date(),
+          });
+          setPendingApproval(null);
+        },
+      };
+    }
+
+    // Detect progress update request
+    if (lowerInput.includes('อัพเดท') || lowerInput.includes('บันทึก') || lowerInput.includes('save progress')) {
+      return {
+        id: crypto.randomUUID(),
+        actionType: 'update_progress',
+        title: 'อัพเดทความคืบหน้า',
+        description: 'AI Buddy ต้องการบันทึกความคืบหน้าของคุณ',
+        details: [
+          'บันทึกตำแหน่งปัจจุบัน',
+          'ซิงค์กับ Supabase',
+        ],
+        confidence: 90,
+        onApprove: () => {
+          addMessage({
+            id: crypto.randomUUID(),
+            role: 'assistant',
+            content: `✅ **อัพเดทสำเร็จ!**
+
+ความคืบหน้าของคุณถูกบันทึกแล้วครับ
+
+🔄 ข้อมูลซิงค์กับ cloud เรียบร้อย 🐉`,
+            timestamp: new Date(),
+          });
+          setPendingApproval(null);
+        },
+      };
+    }
+
+    // Detect data sending request
+    if (lowerInput.includes('ส่งข้อมูล') || lowerInput.includes('export') || lowerInput.includes('share')) {
+      return {
+        id: crypto.randomUUID(),
+        actionType: 'send_data',
+        title: 'ส่งข้อมูล',
+        description: 'AI Buddy ต้องการส่งข้อมูลของคุณ',
+        details: [
+          'ข้อมูลจะถูกเข้ารหัส',
+          'ส่งเฉพาะข้อมูลที่จำเป็น',
+        ],
+        confidence: 75,
+        onApprove: () => {
+          addMessage({
+            id: crypto.randomUUID(),
+            role: 'assistant',
+            content: `✅ **ส่งข้อมูลสำเร็จ!**
+
+ข้อมูลถูกส่งเรียบร้อยแล้วครับ 🐉`,
+            timestamp: new Date(),
+          });
+          setPendingApproval(null);
+        },
+      };
+    }
+
+    return null;
+  };
+
+  // Handle approval rejection
+  const handleRejectApproval = () => {
+    addMessage({
+      id: crypto.randomUUID(),
+      role: 'assistant',
+      content: `❌ **ยกเลิกแล้ว**
+
+ไม่มีปัญหาครับ! ผมจะไม่ดำเนินการใดๆ
+
+มีอะไรอื่นให้ช่วยไหมครับ? 🐉`,
+      timestamp: new Date(),
+    });
+    setPendingApproval(null);
+  };
 
   // Generate fallback AI response (when API unavailable)
   const generateFallbackResponse = (userInput: string): string => {
@@ -184,6 +307,24 @@ export default function ChatPage() {
     // Save to Supabase if authenticated
     if (currentSession?.id) {
       await saveMessage(currentSession.id, 'user', content);
+    }
+
+    // Check for action requests that need Human-in-Loop approval
+    const actionRequest = detectActionRequest(content);
+    if (actionRequest) {
+      // Show approval card instead of AI response
+      addMessage({
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: `🔐 **ต้องการอนุมัติ**
+
+ผมต้องการดำเนินการ: **${actionRequest.title}**
+
+กรุณายืนยันด้านล่างครับ 🐉`,
+        timestamp: new Date(),
+      });
+      setPendingApproval(actionRequest);
+      return;
     }
 
     // Call Claude API
@@ -333,6 +474,22 @@ export default function ChatPage() {
               />
             ))}
             {isTyping && <ChatMessage role="assistant" content="" isTyping />}
+
+            {/* Human-in-Loop Approval Card */}
+            {pendingApproval && (
+              <div className="max-w-md mx-auto">
+                <ApprovalCard
+                  actionType={pendingApproval.actionType}
+                  title={pendingApproval.title}
+                  description={pendingApproval.description}
+                  details={pendingApproval.details}
+                  confidence={pendingApproval.confidence}
+                  onApprove={pendingApproval.onApprove}
+                  onReject={handleRejectApproval}
+                />
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
         </main>
