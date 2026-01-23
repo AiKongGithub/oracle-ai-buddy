@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { ThemeToggle } from '@/components/theme';
 import { useUserStore } from '@/stores/useUserStore';
 
 export function DashboardHeader() {
@@ -49,7 +50,10 @@ export function DashboardHeader() {
         </nav>
 
         {/* User Menu */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          {/* Theme Toggle */}
+          <ThemeToggle />
+
           {isAuthenticated ? (
             <>
               <div className="hidden items-center gap-2 md:flex">

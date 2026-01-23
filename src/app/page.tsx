@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ThemeToggle } from '@/components/theme';
 
 export default function Home() {
   return (
@@ -11,9 +12,12 @@ export default function Home() {
           <span className="text-2xl">🐉</span>
           <span className="font-bold text-foreground">Oracle AI Buddy</span>
         </div>
-        <Link href="/login">
-          <Button variant="outline">เข้าสู่ระบบ</Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Link href="/login">
+            <Button variant="outline">เข้าสู่ระบบ</Button>
+          </Link>
+        </div>
       </nav>
 
       {/* Hero Section */}
