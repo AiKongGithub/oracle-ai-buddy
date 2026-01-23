@@ -440,6 +440,36 @@ sessions:
       - hash: "ce73fd6"
         message: "feat(chat): add Human-in-Loop approval system"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-6"
+    summary: "/toh-dev Memory System — AI จำ context ได้!"
+    context: "แม่ทัพสั่งจูล่งเพิ่ม Memory System สำหรับ AI"
+    completed:
+      - "ออกแบบ Memory System (5 types)"
+      - "สร้าง useMemoryStore (Zustand)"
+      - "สร้าง user_memories table (Supabase migration)"
+      - "เพิ่ม UserMemory type ใน database.ts"
+      - "อัพเดท API route รับ memoryContext"
+      - "เชื่อม memory กับ Chat page"
+      - "Auto-fetch memories on login"
+      - "Build test — 100% PASS"
+    files_created:
+      - "src/stores/useMemoryStore.ts"
+      - "supabase/migrations/002_user_memories.sql"
+    files_updated:
+      - "src/types/database.ts"
+      - "src/app/api/chat/route.ts"
+      - "src/app/chat/page.tsx"
+    memory_types:
+      - "preference — ความชอบของ user"
+      - "fact — ข้อมูลเกี่ยวกับ user"
+      - "summary — สรุปบทสนทนา"
+      - "context — บริบทการเรียนรู้"
+      - "feedback — feedback จาก user"
+    commits:
+      - hash: "2ff88ae"
+        message: "feat(memory): add AI Memory System"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -468,8 +498,12 @@ milestones:
     details: "Dashboard + Chat + Progress + Course Detail สำเร็จครบ!"
   - date: "2026-01-23"
     event: "/toh-dev Started — AI Buddy + Human-in-Loop"
-    status: "in_progress"
+    status: "completed"
     details: "Claude API + Fallback Mode + ApprovalCard"
+  - date: "2026-01-23"
+    event: "/toh-dev Memory System — AI จำได้"
+    status: "completed"
+    details: "useMemoryStore + user_memories table + 5 memory types"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -528,14 +562,18 @@ current_command:
   completed_tasks:
     - "✅ AI Buddy conversation flow (Claude API + Fallback Mode)"
     - "✅ Human-in-Loop approval system (ApprovalCard + action detection)"
+    - "✅ Memory system for AI (useMemoryStore + 5 memory types)"
   remaining_tasks:
-    - "⏳ Memory system for AI"
     - "⏳ Real-time progress sync"
   new_components:
     - "ApprovalCard"
+  new_stores:
+    - "useMemoryStore"
   new_files:
     - "src/app/api/chat/route.ts"
     - "src/components/approval/ApprovalCard.tsx"
+    - "src/stores/useMemoryStore.ts"
+    - "supabase/migrations/002_user_memories.sql"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
