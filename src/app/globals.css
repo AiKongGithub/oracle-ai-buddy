@@ -3,11 +3,55 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ===== 🏯 Pink Castle Theme ===== */
+/* Oracle AI Buddy - AI Learning Platform สำหรับคนไทย */
+/* Primary: Pink Castle | Secondary: Royal Gold | Accent: Dragon Green */
+
 @theme inline {
+  /* Base colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Pink Castle - Primary Colors */
+  --color-castle-50: var(--castle-50);
+  --color-castle-100: var(--castle-100);
+  --color-castle-200: var(--castle-200);
+  --color-castle-300: var(--castle-300);
+  --color-castle-400: var(--castle-400);
+  --color-castle-500: var(--castle-500);
+  --color-castle-600: var(--castle-600);
+  --color-castle-700: var(--castle-700);
+  --color-castle-800: var(--castle-800);
+  --color-castle-900: var(--castle-900);
+  --color-castle-950: var(--castle-950);
+
+  /* Dragon Green - Accent Colors */
+  --color-dragon-50: var(--dragon-50);
+  --color-dragon-100: var(--dragon-100);
+  --color-dragon-200: var(--dragon-200);
+  --color-dragon-300: var(--dragon-300);
+  --color-dragon-400: var(--dragon-400);
+  --color-dragon-500: var(--dragon-500);
+  --color-dragon-600: var(--dragon-600);
+  --color-dragon-700: var(--dragon-700);
+  --color-dragon-800: var(--dragon-800);
+  --color-dragon-900: var(--dragon-900);
+
+  /* Royal Gold - Secondary Colors */
+  --color-royal-50: var(--royal-50);
+  --color-royal-100: var(--royal-100);
+  --color-royal-200: var(--royal-200);
+  --color-royal-300: var(--royal-300);
+  --color-royal-400: var(--royal-400);
+  --color-royal-500: var(--royal-500);
+  --color-royal-600: var(--royal-600);
+  --color-royal-700: var(--royal-700);
+
+  /* Sidebar */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -16,11 +60,15 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+
+  /* Charts */
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+
+  /* UI Elements */
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -37,6 +85,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
+  /* Border Radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -48,71 +98,140 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+
+  /* ===== 🏯 Pink Castle Palette ===== */
+  /* Warm, welcoming pink tones inspired by a friendly castle */
+  --castle-50: oklch(0.97 0.014 350);
+  --castle-100: oklch(0.94 0.03 350);
+  --castle-200: oklch(0.88 0.06 350);
+  --castle-300: oklch(0.80 0.10 350);
+  --castle-400: oklch(0.70 0.15 350);
+  --castle-500: oklch(0.62 0.19 350);
+  --castle-600: oklch(0.55 0.20 350);
+  --castle-700: oklch(0.48 0.18 350);
+  --castle-800: oklch(0.40 0.15 350);
+  --castle-900: oklch(0.35 0.12 350);
+  --castle-950: oklch(0.25 0.08 350);
+
+  /* ===== 🐉 Dragon Green Palette ===== */
+  /* Fresh, energetic green for the AI Buddy mascot */
+  --dragon-50: oklch(0.97 0.02 145);
+  --dragon-100: oklch(0.93 0.04 145);
+  --dragon-200: oklch(0.87 0.08 145);
+  --dragon-300: oklch(0.78 0.12 145);
+  --dragon-400: oklch(0.68 0.16 145);
+  --dragon-500: oklch(0.58 0.16 145);
+  --dragon-600: oklch(0.50 0.14 145);
+  --dragon-700: oklch(0.42 0.12 145);
+  --dragon-800: oklch(0.35 0.10 145);
+  --dragon-900: oklch(0.28 0.08 145);
+
+  /* ===== 👑 Royal Gold Palette ===== */
+  /* Warm gold tones for premium/achievement elements */
+  --royal-50: oklch(0.98 0.02 85);
+  --royal-100: oklch(0.95 0.05 85);
+  --royal-200: oklch(0.90 0.10 85);
+  --royal-300: oklch(0.85 0.14 85);
+  --royal-400: oklch(0.78 0.16 85);
+  --royal-500: oklch(0.72 0.16 80);
+  --royal-600: oklch(0.62 0.14 75);
+  --royal-700: oklch(0.52 0.12 70);
+
+  /* ===== Base Theme Colors ===== */
+  --background: oklch(0.995 0.002 350);
+  --foreground: oklch(0.20 0.02 350);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.20 0.02 350);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.20 0.02 350);
+
+  /* Primary = Pink Castle */
+  --primary: oklch(0.55 0.20 350);
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* Secondary = Soft Pink */
+  --secondary: oklch(0.94 0.03 350);
+  --secondary-foreground: oklch(0.40 0.15 350);
+
+  /* Muted */
+  --muted: oklch(0.96 0.01 350);
+  --muted-foreground: oklch(0.50 0.05 350);
+
+  /* Accent = Dragon Green */
+  --accent: oklch(0.58 0.16 145);
+  --accent-foreground: oklch(0.99 0 0);
+
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: oklch(0.92 0.01 350);
+  --input: oklch(0.92 0.01 350);
+  --ring: oklch(0.62 0.19 350);
+
+  /* Charts - Pink Castle theme colors */
+  --chart-1: oklch(0.62 0.19 350);
+  --chart-2: oklch(0.58 0.16 145);
+  --chart-3: oklch(0.72 0.16 80);
+  --chart-4: oklch(0.70 0.15 350);
+  --chart-5: oklch(0.68 0.16 145);
+
+  /* Sidebar */
+  --sidebar: oklch(0.99 0.005 350);
+  --sidebar-foreground: oklch(0.20 0.02 350);
+  --sidebar-primary: oklch(0.55 0.20 350);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.94 0.03 350);
+  --sidebar-accent-foreground: oklch(0.40 0.15 350);
+  --sidebar-border: oklch(0.92 0.01 350);
+  --sidebar-ring: oklch(0.62 0.19 350);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* ===== 🏯 Pink Castle Dark Mode ===== */
+  /* Elegant dark theme with pink accents */
+
+  --background: oklch(0.14 0.01 350);
+  --foreground: oklch(0.95 0.01 350);
+  --card: oklch(0.18 0.015 350);
+  --card-foreground: oklch(0.95 0.01 350);
+  --popover: oklch(0.18 0.015 350);
+  --popover-foreground: oklch(0.95 0.01 350);
+
+  /* Primary = Bright Pink Castle */
+  --primary: oklch(0.70 0.18 350);
+  --primary-foreground: oklch(0.15 0.02 350);
+
+  /* Secondary = Deep Pink */
+  --secondary: oklch(0.25 0.04 350);
+  --secondary-foreground: oklch(0.90 0.02 350);
+
+  /* Muted */
+  --muted: oklch(0.22 0.02 350);
+  --muted-foreground: oklch(0.65 0.03 350);
+
+  /* Accent = Bright Dragon Green */
+  --accent: oklch(0.68 0.16 145);
+  --accent-foreground: oklch(0.15 0.02 145);
+
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(0.30 0.02 350);
+  --input: oklch(0.25 0.02 350);
+  --ring: oklch(0.70 0.18 350);
+
+  /* Charts - Dark mode Pink Castle colors */
+  --chart-1: oklch(0.70 0.18 350);
+  --chart-2: oklch(0.68 0.16 145);
+  --chart-3: oklch(0.78 0.16 85);
+  --chart-4: oklch(0.75 0.15 350);
+  --chart-5: oklch(0.72 0.14 145);
+
+  /* Sidebar - Dark with pink accent */
+  --sidebar: oklch(0.16 0.015 350);
+  --sidebar-foreground: oklch(0.95 0.01 350);
+  --sidebar-primary: oklch(0.70 0.18 350);
+  --sidebar-primary-foreground: oklch(0.15 0.02 350);
+  --sidebar-accent: oklch(0.25 0.04 350);
+  --sidebar-accent-foreground: oklch(0.90 0.02 350);
+  --sidebar-border: oklch(0.30 0.02 350);
+  --sidebar-ring: oklch(0.70 0.18 350);
 }
 
 @layer base {

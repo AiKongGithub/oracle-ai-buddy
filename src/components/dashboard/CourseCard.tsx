@@ -22,23 +22,23 @@ export function CourseCard({ course, progress = 0, isNew = false }: CourseCardPr
 
   const getStatusBadge = () => {
     if (progress === 100) {
-      return <Badge className="bg-green-100 text-green-700">เสร็จสิ้น</Badge>;
+      return <Badge className="bg-dragon-100 text-dragon-700 dark:bg-dragon-900 dark:text-dragon-300">เสร็จสิ้น</Badge>;
     }
     if (progress > 0) {
-      return <Badge className="bg-pink-100 text-pink-700">กำลังเรียน</Badge>;
+      return <Badge className="bg-castle-100 text-castle-700 dark:bg-castle-900 dark:text-castle-300">กำลังเรียน</Badge>;
     }
     if (isNew) {
-      return <Badge className="bg-blue-100 text-blue-700">ใหม่</Badge>;
+      return <Badge className="bg-royal-100 text-royal-700 dark:bg-royal-700/30 dark:text-royal-300">ใหม่</Badge>;
     }
     return null;
   };
 
   return (
-    <Card className="group transition-all hover:shadow-lg hover:border-pink-200">
+    <Card className="group transition-all hover:shadow-lg hover:shadow-castle-500/10 hover:border-castle-300 dark:hover:border-castle-700">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-lg">{course.titleTh}</CardTitle>
+            <CardTitle className="text-lg text-foreground">{course.titleTh}</CardTitle>
             <CardDescription className="mt-1">{course.title}</CardDescription>
           </div>
           {getStatusBadge()}
@@ -46,24 +46,24 @@ export function CourseCard({ course, progress = 0, isNew = false }: CourseCardPr
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Description */}
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
+        <p className="text-sm text-muted-foreground line-clamp-2">
           {course.descriptionTh}
         </p>
 
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-zinc-500">ความคืบหน้า</span>
-            <span className="font-medium text-pink-600">{progress}%</span>
+            <span className="text-muted-foreground">ความคืบหน้า</span>
+            <span className="font-medium text-primary">{progress}%</span>
           </div>
           <Progress value={progress} className="h-2" />
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-muted-foreground">
             {completedLessons}/{totalLessons} บทเรียน
           </p>
         </div>
 
         {/* Course Info */}
-        <div className="flex items-center justify-between text-sm text-zinc-500">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>{course.modules.length} โมดูล</span>
           <span>{course.totalDuration} นาที</span>
         </div>
@@ -71,7 +71,7 @@ export function CourseCard({ course, progress = 0, isNew = false }: CourseCardPr
         {/* Action Button */}
         <Link href={`/course/${course.id}`} className="block">
           <Button
-            className="w-full bg-pink-600 hover:bg-pink-700 group-hover:bg-pink-700"
+            className="w-full bg-primary hover:bg-castle-700 text-primary-foreground shadow-sm group-hover:shadow-md transition-shadow"
             size="sm"
           >
             {progress > 0 ? 'เรียนต่อ' : 'เริ่มเรียน'}

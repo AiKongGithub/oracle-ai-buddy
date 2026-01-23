@@ -77,7 +77,7 @@ export default function DashboardPage() {
   const isPageLoading = authLoading || progressLoading;
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+    <div className="min-h-screen bg-gradient-to-b from-castle-50/50 to-background dark:from-castle-950/30 dark:to-background">
       {/* Header with Welcome Banner */}
       <DashboardHeader />
 
@@ -197,34 +197,34 @@ export default function DashboardPage() {
             <QuickActions />
 
             {/* Tips Card */}
-            <Card className="bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/30 dark:to-pink-900/30 border-pink-200">
+            <Card className="bg-gradient-to-br from-royal-50 to-royal-100 dark:from-royal-700/20 dark:to-royal-600/10 border-royal-200 dark:border-royal-700/50">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base flex items-center gap-2">
+                <CardTitle className="text-base flex items-center gap-2 text-royal-700 dark:text-royal-300">
                   💡 เคล็ดลับวันนี้
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-zinc-700 dark:text-zinc-300">
-                  <strong>Human in the Loop</strong> — ให้ AI เป็นผู้ช่วย ไม่ใช่ผู้ตัดสินใจ
+                <p className="text-sm text-foreground/80">
+                  <strong className="text-royal-600 dark:text-royal-400">Human in the Loop</strong> — ให้ AI เป็นผู้ช่วย ไม่ใช่ผู้ตัดสินใจ
                   ตรวจสอบผลลัพธ์จาก AI เสมอก่อนนำไปใช้งานจริง
                 </p>
               </CardContent>
             </Card>
 
             {/* AI Buddy Mini Chat */}
-            <Card>
+            <Card className="border-dragon-200 dark:border-dragon-800 hover:shadow-lg hover:shadow-dragon-500/10 transition-shadow">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base flex items-center gap-2">
+                <CardTitle className="text-base flex items-center gap-2 text-dragon-600 dark:text-dragon-400">
                   🐉 AI Buddy
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">
+                <p className="text-sm text-muted-foreground mb-3">
                   มีคำถามไหม? ผมพร้อมช่วยเสมอ!
                 </p>
                 <a
                   href="/chat"
-                  className="block text-center text-sm text-pink-600 hover:text-pink-700 font-medium"
+                  className="block text-center text-sm text-primary hover:text-castle-700 dark:hover:text-castle-400 font-medium transition-colors"
                 >
                   เริ่มแชทเลย →
                 </a>
