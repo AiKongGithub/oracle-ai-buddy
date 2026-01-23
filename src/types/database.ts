@@ -116,6 +116,38 @@ export interface Database {
           created_at?: string;
         };
       };
+      user_memories: {
+        Row: {
+          id: string;
+          user_id: string;
+          type: 'preference' | 'fact' | 'summary' | 'context' | 'feedback';
+          key: string;
+          value: string;
+          importance: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          type: 'preference' | 'fact' | 'summary' | 'context' | 'feedback';
+          key: string;
+          value: string;
+          importance?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          type?: 'preference' | 'fact' | 'summary' | 'context' | 'feedback';
+          key?: string;
+          value?: string;
+          importance?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
     };
     Views: {
       [_ in never]: never;
@@ -134,3 +166,4 @@ export type Profile = Database['public']['Tables']['profiles']['Row'];
 export type LearningProgress = Database['public']['Tables']['learning_progress']['Row'];
 export type ChatSession = Database['public']['Tables']['chat_sessions']['Row'];
 export type ChatMessage = Database['public']['Tables']['chat_messages']['Row'];
+export type UserMemory = Database['public']['Tables']['user_memories']['Row'];

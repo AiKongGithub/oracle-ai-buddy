@@ -6,8 +6,8 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// System prompt for AI Buddy
-const SYSTEM_PROMPT = `คุณคือ "AI Buddy" — เพื่อนร่วมเรียนรู้ AI สำหรับคนไทย
+// Base system prompt for AI Buddy
+const BASE_SYSTEM_PROMPT = `คุณคือ "AI Buddy" — เพื่อนร่วมเรียนรู้ AI สำหรับคนไทย
 
 ## ปรัชญาหลัก
 - **Human in the Loop** — มนุษย์ควบคุม AI ไม่ใช่ AI ควบคุมมนุษย์
@@ -24,16 +24,34 @@ const SYSTEM_PROMPT = `คุณคือ "AI Buddy" — เพื่อนร�
 - ตอบกระชับ ไม่เยิ่นเย้อ
 - ใช้ bullet points หรือ markdown เมื่อเหมาะสม
 - ถ้าไม่แน่ใจ ให้ถามกลับ
-- ลงท้ายด้วย emoji มังกร 🐉 เมื่อเหมาะสม`;
+- ลงท้ายด้วย emoji มังกร 🐉 เมื่อเหมาะสม
+- ใช้ข้อมูลจาก "ความทรงจำ" ด้านล่างเพื่อตอบได้ตรงใจมากขึ้น`;
+
+// Build system prompt with memory context
+const buildSystemPrompt = (memoryContext?: string): string => {
+  if (!memoryContext) return BASE_SYSTEM_PROMPT;
+
+  return `${BASE_SYSTEM_PROMPT}
+
+---
+# ความทรงจำเกี่ยวกับผู้ใช้
+${memoryContext}
+---`;
+};
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
+interface ChatRequestBody {
+  messages: Message[];
+  memoryContext?: string;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { messages } = await request.json() as { messages: Message[] };
+    const { messages, memoryContext } = await request.json() as ChatRequestBody;
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
@@ -50,12 +68,18 @@ export async function POST(request: NextRequest) {
     }
 
     console.log('[BUDDY-ACTION] Calling Claude API...');
+    if (memoryContext) {
+      console.log('[BUDDY-DATA] Memory context included');
+    }
+
+    // Build system prompt with memory
+    const systemPrompt = buildSystemPrompt(memoryContext);
 
     // Call Claude API
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1024,
-      system: SYSTEM_PROMPT,
+      system: systemPrompt,
       messages: messages.map((m) => ({
         role: m.role,
         content: m.content,

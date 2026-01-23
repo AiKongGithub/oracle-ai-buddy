@@ -8,6 +8,7 @@ import { ChatMessage, ChatInput, ChatSidebar } from '@/components/chat';
 import { ApprovalCard, ActionType } from '@/components/approval';
 import { useUserStore } from '@/stores/useUserStore';
 import { useChatStore } from '@/stores/useChatStore';
+import { useMemoryStore } from '@/stores/useMemoryStore';
 import { mockWelcomeMessage } from '@/lib/mock-data';
 
 // API response type
@@ -49,6 +50,7 @@ export default function ChatPage() {
     setCurrentSession,
     setMessages,
   } = useChatStore();
+  const { fetchMemories, getContextForAI, addMemory } = useMemoryStore();
 
   const [showSidebar, setShowSidebar] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -236,12 +238,13 @@ export default function ChatPage() {
     initAuth();
   }, [initAuth]);
 
-  // Fetch sessions when user is authenticated
+  // Fetch sessions and memories when user is authenticated
   useEffect(() => {
     if (user?.id) {
       fetchSessions(user.id);
+      fetchMemories(user.id);
     }
-  }, [user?.id, fetchSessions]);
+  }, [user?.id, fetchSessions, fetchMemories]);
 
   // Load welcome message for guest users
   useEffect(() => {
@@ -339,10 +342,13 @@ export default function ChatPage() {
           content: m.content,
         }));
 
+      // Get memory context for AI
+      const memoryContext = getContextForAI();
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({ messages: apiMessages, memoryContext }),
       });
 
       const data: ChatAPIResponse = await response.json();
