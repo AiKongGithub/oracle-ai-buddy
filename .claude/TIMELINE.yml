@@ -1,6 +1,6 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-ui COMPLETED!)
+# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-dev IN PROGRESS)
 
 project:
   name: "Oracle AI Buddy"
@@ -59,7 +59,8 @@ toh_13_commands:
   - id: 5
     command: "/toh-dev"
     description: "เพิ่ม logic, state, functionality"
-    status: "next"
+    status: "in_progress"
+    started_date: "2026-01-23"
     phase: 2
   - id: 6
     command: "/toh-design"
@@ -412,6 +413,33 @@ sessions:
       - hash: "81fd852"
         message: "feat(course): add course detail page with lesson viewer"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-5"
+    summary: "/toh-dev Started — AI Buddy + Human-in-Loop!"
+    context: "แม่ทัพสั่งจูล่งเพิ่ม logic และ functionality"
+    completed:
+      - "ติดตั้ง @anthropic-ai/sdk"
+      - "สร้าง /api/chat route สำหรับ Claude API"
+      - "เชื่อม Claude API กับ Chat page"
+      - "เพิ่ม Fallback Mode เมื่อ API ไม่พร้อม"
+      - "สร้าง ApprovalCard component (Human-in-Loop)"
+      - "เพิ่ม action detection (complete_lesson, update_progress, send_data)"
+      - "เพิ่ม approve/reject flow"
+      - "Build test — 100% PASS"
+    files_created:
+      - "src/app/api/chat/route.ts"
+      - "src/components/approval/ApprovalCard.tsx"
+      - "src/components/approval/index.ts"
+    files_updated:
+      - "src/app/chat/page.tsx"
+      - ".env.local (ANTHROPIC_API_KEY)"
+      - "package.json"
+    commits:
+      - hash: "a99419e"
+        message: "feat(chat): add Claude API integration with Fallback Mode"
+      - hash: "ce73fd6"
+        message: "feat(chat): add Human-in-Loop approval system"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -438,6 +466,10 @@ milestones:
     event: "/toh-ui COMPLETED — All UI Done!"
     status: "completed"
     details: "Dashboard + Chat + Progress + Course Detail สำเร็จครบ!"
+  - date: "2026-01-23"
+    event: "/toh-dev Started — AI Buddy + Human-in-Loop"
+    status: "in_progress"
+    details: "Claude API + Fallback Mode + ApprovalCard"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -488,14 +520,22 @@ previous_command:
   total_components: 14
   total_pages: 4
 
-next_actions:
+current_command:
   command: "/toh-dev"
   description: "เพิ่ม logic, state, functionality"
-  tasks:
-    - "AI Buddy conversation flow"
-    - "Human-in-Loop approval system"
-    - "Memory system for AI"
-    - "Real-time progress sync"
+  status: "IN_PROGRESS"
+  started_date: "2026-01-23"
+  completed_tasks:
+    - "✅ AI Buddy conversation flow (Claude API + Fallback Mode)"
+    - "✅ Human-in-Loop approval system (ApprovalCard + action detection)"
+  remaining_tasks:
+    - "⏳ Memory system for AI"
+    - "⏳ Real-time progress sync"
+  new_components:
+    - "ApprovalCard"
+  new_files:
+    - "src/app/api/chat/route.ts"
+    - "src/components/approval/ApprovalCard.tsx"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
