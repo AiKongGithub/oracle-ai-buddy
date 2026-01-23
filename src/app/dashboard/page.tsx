@@ -5,117 +5,76 @@ import { DashboardHeader, StatsCard, CourseCard, QuickActions } from '@/componen
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useUserStore } from '@/stores/useUserStore';
-import { supabase } from '@/lib/supabase';
+import { useProgressStore } from '@/stores/useProgressStore';
 import { mockCourses } from '@/lib/mock-data';
-import type { LearningProgress } from '@/types/database';
 import type { DashboardStats } from '@/types';
 
 export default function DashboardPage() {
   const { user, isAuthenticated, isLoading: authLoading, initialize } = useUserStore();
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [progress, setProgress] = useState<Record<string, number>>({});
-  const [loading, setLoading] = useState(true);
+  const {
+    progress,
+    stats: progressStats,
+    isLoading: progressLoading,
+    fetchProgress,
+    subscribeToProgress,
+    unsubscribeFromProgress,
+  } = useProgressStore();
+
+  const [courseProgress, setCourseProgress] = useState<Record<string, number>>({});
 
   // Initialize auth
   useEffect(() => {
     initialize();
   }, [initialize]);
 
-  // Fetch learning progress from Supabase
+  // Fetch progress and subscribe to realtime updates
   useEffect(() => {
-    async function fetchProgress() {
-      if (!user) {
-        // Use mock data if not logged in
-        setStats({
-          totalCourses: mockCourses.length,
-          completedCourses: 0,
-          totalLessons: mockCourses.reduce(
-            (sum, c) => sum + c.modules.reduce((s, m) => s + m.lessons.length, 0),
-            0
-          ),
-          completedLessons: 0,
-          totalTime: 0,
-          streak: 1,
-        });
-        setLoading(false);
-        return;
-      }
+    if (user?.id) {
+      fetchProgress(user.id);
+      subscribeToProgress(user.id);
+      console.log('[BUDDY-INIT] Dashboard realtime connected');
 
-      try {
-        // Fetch user's learning progress
-        const { data: progressData } = await supabase
-          .from('learning_progress')
-          .select('*')
-          .eq('user_id', user.id);
-
-        if (progressData) {
-          // Calculate progress per course
-          const courseProgress: Record<string, number> = {};
-          let totalCompletedLessons = 0;
-          let completedCourses = 0;
-
-          progressData.forEach((p: LearningProgress) => {
-            const course = mockCourses.find((c) => c.id === p.course_id);
-            if (course) {
-              const totalLessons = course.modules.reduce(
-                (sum, m) => sum + m.lessons.length,
-                0
-              );
-              const completed = p.completed_lessons?.length || 0;
-              courseProgress[p.course_id] = Math.round((completed / totalLessons) * 100);
-              totalCompletedLessons += completed;
-              if (p.completed_at) completedCourses++;
-            }
-          });
-
-          setProgress(courseProgress);
-
-          // Calculate total stats
-          const totalLessons = mockCourses.reduce(
-            (sum, c) => sum + c.modules.reduce((s, m) => s + m.lessons.length, 0),
-            0
-          );
-
-          setStats({
-            totalCourses: mockCourses.length,
-            completedCourses,
-            totalLessons,
-            completedLessons: totalCompletedLessons,
-            totalTime: totalCompletedLessons * 15, // Estimate 15 min per lesson
-            streak: calculateStreak(progressData),
-          });
-        }
-      } catch (error) {
-        console.error('[BUDDY-ERROR] Failed to fetch progress:', error);
-      } finally {
-        setLoading(false);
-      }
+      return () => {
+        unsubscribeFromProgress();
+      };
     }
+  }, [user?.id, fetchProgress, subscribeToProgress, unsubscribeFromProgress]);
 
-    if (!authLoading) {
-      fetchProgress();
-    }
-  }, [user, authLoading]);
+  // Calculate course progress percentages
+  useEffect(() => {
+    const newCourseProgress: Record<string, number> = {};
 
-  // Calculate learning streak (simplified)
-  function calculateStreak(progressData: LearningProgress[]): number {
-    if (!progressData.length) return 0;
+    progress.forEach((p) => {
+      const course = mockCourses.find((c) => c.id === p.course_id);
+      if (course) {
+        const totalLessons = course.modules.reduce(
+          (sum, m) => sum + m.lessons.length,
+          0
+        );
+        const completed = p.completed_lessons?.length || 0;
+        newCourseProgress[p.course_id] = totalLessons > 0
+          ? Math.round((completed / totalLessons) * 100)
+          : 0;
+      }
+    });
 
-    const today = new Date();
-    const lastAccess = progressData.reduce((latest, p) => {
-      const date = new Date(p.last_accessed_at);
-      return date > latest ? date : latest;
-    }, new Date(0));
+    setCourseProgress(newCourseProgress);
+  }, [progress]);
 
-    const diffDays = Math.floor(
-      (today.getTime() - lastAccess.getTime()) / (1000 * 60 * 60 * 24)
-    );
+  // Build stats object from progressStats
+  const stats: DashboardStats = {
+    totalCourses: mockCourses.length,
+    completedCourses: progressStats.completedCourses,
+    totalLessons: mockCourses.reduce(
+      (sum, c) => sum + c.modules.reduce((s, m) => s + m.lessons.length, 0),
+      0
+    ),
+    completedLessons: progressStats.completedLessons,
+    totalTime: progressStats.completedLessons * 15, // Estimate 15 min per lesson
+    streak: progressStats.currentStreak,
+  };
 
-    // If last access was today or yesterday, maintain streak
-    return diffDays <= 1 ? Math.max(1, progressData.length) : 0;
-  }
-
-  const isPageLoading = authLoading || loading;
+  const isPageLoading = authLoading || progressLoading;
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
@@ -191,8 +150,8 @@ export default function DashboardPage() {
                     <CourseCard
                       key={course.id}
                       course={course}
-                      progress={progress[course.id] || 0}
-                      isNew={!progress[course.id]}
+                      progress={courseProgress[course.id] || 0}
+                      isNew={!courseProgress[course.id]}
                     />
                   ))}
                 </div>
