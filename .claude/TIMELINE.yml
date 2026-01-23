@@ -89,7 +89,8 @@ toh_13_commands:
   - id: 10
     command: "/toh-ship"
     description: "Deploy ขึ้น production"
-    status: "next"
+    status: "completed"
+    completed_date: "2026-01-23"
     phase: 3
   - id: 11
     command: "/toh-line"
@@ -143,13 +144,14 @@ phases:
   phase_3:
     name: "Polish"
     duration: "สัปดาห์ 5+"
-    status: "next"
+    status: "completed"
+    completed_date: "2026-01-23"
     commands: ["/toh-design", "/toh-test", "/toh-fix", "/toh-ship"]
     deliverables:
-      - "Pink Castle theme"
-      - "Test coverage"
-      - "Bug fixes"
-      - "Vercel deployment"
+      - "Pink Castle theme ✅"
+      - "Test coverage (104 tests) ✅"
+      - "Bug fixes (lint clean) ✅"
+      - "Vercel deployment ✅"
   phase_4:
     name: "Extensions"
     duration: "อนาคต"
@@ -598,6 +600,27 @@ sessions:
       - hash: "c8a1335"
         message: "fix: resolve lint errors and improve code quality"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-11"
+    summary: "/toh-ship COMPLETED — Deployed to Vercel!"
+    context: "แม่ทัพ + กุนซือ + จูล่ง ร่วมกัน deploy"
+    completed:
+      - "รัน build ตรวจสอบ — ผ่าน"
+      - "สร้าง vercel.json (Region: sin1, Security headers)"
+      - "สร้าง .env.example template"
+      - "ติดตั้ง Vercel CLI"
+      - "Deploy ขึ้น Vercel (ร่วมกับ กุนซือ + แม่ทัพ)"
+      - "ตั้งค่า Environment variables"
+      - "ทดสอบ Production — PASS"
+      - "/toh-ship COMPLETED!"
+      - "Phase 3 COMPLETED!"
+    files_created:
+      - "vercel.json"
+      - ".env.example"
+    files_updated:
+      - "package.json (renamed to oracle-ai-buddy)"
+      - ".gitignore (added !.env.example)"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -648,6 +671,14 @@ milestones:
     event: "/toh-fix COMPLETED — Lint Clean!"
     status: "completed"
     details: "0 lint errors, 104 tests passing, build successful"
+  - date: "2026-01-23"
+    event: "/toh-ship COMPLETED — Deployed to Vercel!"
+    status: "completed"
+    details: "Production deployment with กุนซือ + แม่ทัพ"
+  - date: "2026-01-23"
+    event: "Phase 3 Complete — MVP Launch!"
+    status: "completed"
+    details: "/toh-design + /toh-test + /toh-fix + /toh-ship สำเร็จครบ!"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -709,13 +740,22 @@ previous_command:
 current_command:
   command: "/toh-ship"
   description: "Deploy ขึ้น production"
-  status: "NEXT"
-  planned_tasks:
-    - "⏳ Configure Vercel deployment"
-    - "⏳ Set environment variables"
-    - "⏳ Deploy to production"
-    - "⏳ Verify production build"
-    - "⏳ Test all features in production"
+  status: "COMPLETED"
+  started_date: "2026-01-23"
+  completed_date: "2026-01-23"
+  achievements:
+    - "✅ Build passed — production ready"
+    - "✅ Created vercel.json with security headers"
+    - "✅ Created .env.example template"
+    - "✅ Deployed to Vercel (with กุนซือ + แม่ทัพ)"
+    - "✅ Environment variables configured"
+    - "✅ Production build verified"
+  files_created:
+    - "vercel.json"
+    - ".env.example"
+  files_updated:
+    - "package.json (renamed to oracle-ai-buddy)"
+    - ".gitignore (added !.env.example)"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
