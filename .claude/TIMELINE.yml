@@ -1,6 +1,6 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-dev COMPLETED!)
+# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-design COMPLETED!)
 
 project:
   name: "Oracle AI Buddy"
@@ -65,12 +65,13 @@ toh_13_commands:
   - id: 6
     command: "/toh-design"
     description: "ปรับปรุง design ให้ professional"
-    status: "next"
+    status: "completed"
+    completed_date: "2026-01-23"
     phase: 3
   - id: 7
     command: "/toh-test"
     description: "รัน tests และ auto-fix"
-    status: "pending"
+    status: "next"
     phase: 3
   - id: 8
     command: "/toh-connect"
@@ -495,6 +496,41 @@ sessions:
       - hash: "53fcd3c"
         message: "feat(progress): add Real-time Progress sync"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-8"
+    summary: "/toh-design COMPLETED — Pink Castle Theme!"
+    context: "แม่ทัพสั่งจูล่งปรับปรุง design ให้ professional"
+    completed:
+      - "สร้าง Pink Castle color palette (castle, dragon, royal)"
+      - "เพิ่ม IBM Plex Sans Thai font"
+      - "สร้าง Animation system (8 keyframes + utilities)"
+      - "เพิ่ม Dark Mode Toggle (ThemeProvider)"
+      - "เพิ่ม Mobile responsive navigation"
+      - "Build test — 100% PASS"
+      - "/toh-design COMPLETED!"
+    files_created:
+      - "src/components/theme/ThemeProvider.tsx"
+      - "src/components/theme/ThemeToggle.tsx"
+      - "src/components/theme/index.ts"
+    files_updated:
+      - "src/app/globals.css (Pink Castle + Animations)"
+      - "src/app/layout.tsx (ThemeProvider + Thai font)"
+      - "src/app/page.tsx (theme colors + ThemeToggle)"
+      - "src/app/dashboard/page.tsx"
+      - "src/components/dashboard/DashboardHeader.tsx (mobile menu)"
+      - "src/components/dashboard/CourseCard.tsx"
+    commits:
+      - hash: "2cbd4c3"
+        message: "feat(design): add Pink Castle Theme color system"
+      - hash: "1b97de2"
+        message: "feat(design): add IBM Plex Sans Thai typography"
+      - hash: "a170a1c"
+        message: "feat(design): add animation system and transitions"
+      - hash: "63f2c46"
+        message: "feat(design): add Dark Mode toggle with theme provider"
+      - hash: "b0b65c6"
+        message: "feat(design): add responsive mobile navigation"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -533,6 +569,10 @@ milestones:
     event: "/toh-dev COMPLETED — All Logic Done!"
     status: "completed"
     details: "AI Buddy + Human-in-Loop + Memory + Real-time Progress"
+  - date: "2026-01-23"
+    event: "/toh-design COMPLETED — Pink Castle Theme!"
+    status: "completed"
+    details: "Color palette + Thai font + Animations + Dark mode + Responsive"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -571,38 +611,35 @@ principles:
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
 previous_command:
-  command: "/toh-dev"
-  description: "เพิ่ม logic, state, functionality"
+  command: "/toh-design"
+  description: "ปรับปรุง design ให้ professional"
   status: "COMPLETED"
   started_date: "2026-01-23"
   completed_date: "2026-01-23"
   achievements:
-    - "✅ AI Buddy conversation flow (Claude API + Fallback Mode)"
-    - "✅ Human-in-Loop approval system (ApprovalCard + action detection)"
-    - "✅ Memory system for AI (useMemoryStore + 5 memory types)"
-    - "✅ Real-time progress sync (useProgressStore + Supabase Realtime)"
+    - "✅ Pink Castle Theme (castle, dragon, royal color palettes)"
+    - "✅ IBM Plex Sans Thai typography"
+    - "✅ Animation system (8 keyframes + hover effects)"
+    - "✅ Dark Mode Toggle (ThemeProvider + localStorage)"
+    - "✅ Responsive mobile navigation"
   new_components:
-    - "ApprovalCard"
-  new_stores:
-    - "useMemoryStore"
-    - "useProgressStore"
+    - "ThemeProvider"
+    - "ThemeToggle"
   new_files:
-    - "src/app/api/chat/route.ts"
-    - "src/components/approval/ApprovalCard.tsx"
-    - "src/stores/useMemoryStore.ts"
-    - "src/stores/useProgressStore.ts"
-    - "supabase/migrations/002_user_memories.sql"
+    - "src/components/theme/ThemeProvider.tsx"
+    - "src/components/theme/ThemeToggle.tsx"
+    - "src/components/theme/index.ts"
 
 current_command:
-  command: "/toh-design"
-  description: "ปรับปรุง design ให้ professional"
+  command: "/toh-test"
+  description: "รัน tests และ auto-fix"
   status: "NEXT"
   planned_tasks:
-    - "⏳ Pink Castle theme refinement"
-    - "⏳ Responsive design improvements"
-    - "⏳ Animation และ transitions"
-    - "⏳ Dark mode polish"
-    - "⏳ Typography และ spacing"
+    - "⏳ Setup testing framework (Vitest/Jest)"
+    - "⏳ Write unit tests for stores"
+    - "⏳ Write component tests"
+    - "⏳ Integration tests for API routes"
+    - "⏳ E2E tests (optional)"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
