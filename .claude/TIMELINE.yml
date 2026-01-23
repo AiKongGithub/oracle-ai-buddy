@@ -1,6 +1,6 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-test COMPLETED! 104 tests)
+# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-fix COMPLETED!)
 
 project:
   name: "Oracle AI Buddy"
@@ -83,12 +83,13 @@ toh_13_commands:
   - id: 9
     command: "/toh-fix"
     description: "Debug และแก้ไขปัญหา"
-    status: "next"
+    status: "completed"
+    completed_date: "2026-01-23"
     phase: 3
   - id: 10
     command: "/toh-ship"
     description: "Deploy ขึ้น production"
-    status: "pending"
+    status: "next"
     phase: 3
   - id: 11
     command: "/toh-line"
@@ -570,6 +571,33 @@ sessions:
       - hash: "7293e4e"
         message: "test: add comprehensive test suite with Vitest"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-10"
+    summary: "/toh-fix COMPLETED — Lint Clean!"
+    context: "แม่ทัพสั่งจูล่ง debug และแก้ไขปัญหา"
+    completed:
+      - "รัน build ตรวจสอบ — ผ่าน"
+      - "รัน lint พบ 4 errors, 5 warnings"
+      - "แก้ไข setState-in-effect errors (React 19 strict rules)"
+      - "ใช้ useMemo แทน useEffect+setState"
+      - "ลบ unused variables"
+      - "Refactor ThemeProvider hydration pattern"
+      - "Refactor dashboard/course pages"
+      - "เพิ่ม coverage/ to .gitignore"
+      - "รัน lint ใหม่ — 0 errors"
+      - "รัน tests — 104 passed"
+      - "/toh-fix COMPLETED!"
+    files_updated:
+      - "src/app/chat/page.tsx (remove unused vars)"
+      - "src/app/dashboard/page.tsx (useMemo)"
+      - "src/app/course/[id]/page.tsx (useMemo)"
+      - "src/components/theme/ThemeProvider.tsx (hydration fix)"
+      - "src/stores/useMemoryStore.test.ts (unused import)"
+      - ".gitignore (add coverage/)"
+    commits:
+      - hash: "c8a1335"
+        message: "fix: resolve lint errors and improve code quality"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -616,6 +644,10 @@ milestones:
     event: "/toh-test COMPLETED — 104 Tests!"
     status: "completed"
     details: "Vitest + 40 store tests + 51 component tests + 13 API tests"
+  - date: "2026-01-23"
+    event: "/toh-fix COMPLETED — Lint Clean!"
+    status: "completed"
+    details: "0 lint errors, 104 tests passing, build successful"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -654,34 +686,36 @@ principles:
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
 previous_command:
-  command: "/toh-test"
-  description: "รัน tests และ auto-fix"
+  command: "/toh-fix"
+  description: "Debug และแก้ไขปัญหา"
   status: "COMPLETED"
   started_date: "2026-01-23"
   completed_date: "2026-01-23"
   achievements:
-    - "✅ Setup Vitest testing framework"
-    - "✅ Store tests (40 tests): useUserStore, useChatStore, useMemoryStore, useProgressStore"
-    - "✅ Component tests (51 tests): ThemeProvider, CourseCard, ChatInput, DashboardHeader"
-    - "✅ API route tests (13 tests): /api/chat with Anthropic mock"
-    - "✅ 104 tests total — ALL PASSING"
-  new_files:
-    - "vitest.config.ts"
-    - "src/test/setup.ts"
-    - "src/stores/*.test.ts (4 files)"
-    - "src/components/**/*.test.tsx (4 files)"
-    - "src/app/api/chat/route.test.ts"
+    - "✅ Build passed — no TypeScript errors"
+    - "✅ Fixed 4 lint errors (setState-in-effect)"
+    - "✅ Fixed 5 warnings (unused variables/imports)"
+    - "✅ Refactored to use useMemo instead of useEffect+setState"
+    - "✅ All 104 tests passing"
+    - "✅ Lint clean — 0 errors"
+  files_fixed:
+    - "src/app/chat/page.tsx"
+    - "src/app/dashboard/page.tsx"
+    - "src/app/course/[id]/page.tsx"
+    - "src/components/theme/ThemeProvider.tsx"
+    - "src/stores/useMemoryStore.test.ts"
+    - ".gitignore"
 
 current_command:
-  command: "/toh-fix"
-  description: "Debug และแก้ไขปัญหา"
+  command: "/toh-ship"
+  description: "Deploy ขึ้น production"
   status: "NEXT"
   planned_tasks:
-    - "⏳ Check for any runtime errors"
-    - "⏳ Fix any TypeScript errors"
-    - "⏳ Optimize performance"
-    - "⏳ Code cleanup"
-    - "⏳ Verify all features work correctly"
+    - "⏳ Configure Vercel deployment"
+    - "⏳ Set environment variables"
+    - "⏳ Deploy to production"
+    - "⏳ Verify production build"
+    - "⏳ Test all features in production"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
