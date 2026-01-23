@@ -95,7 +95,8 @@ toh_13_commands:
   - id: 11
     command: "/toh-line"
     description: "LINE Mini App integration"
-    status: "future"
+    status: "completed"
+    completed_date: "2026-01-23"
     phase: 4
   - id: 12
     command: "/toh-mobile"
@@ -621,6 +622,31 @@ sessions:
       - "package.json (renamed to oracle-ai-buddy)"
       - ".gitignore (added !.env.example)"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-12"
+    summary: "/toh-line COMPLETED — LINE LIFF Login!"
+    context: "แม่ทัพสั่งจูล่งทำ LINE Mini App integration"
+    completed:
+      - "ศึกษา LINE LIFF SDK"
+      - "ติดตั้ง @line/liff v2.27.3"
+      - "สร้าง LiffProvider component"
+      - "สร้าง /line page"
+      - "LINE Login + แสดง Profile"
+      - "Auto-redirect ไป /chat"
+      - "Deploy + Test สำเร็จ"
+      - "/toh-line COMPLETED!"
+    files_created:
+      - "src/lib/liff/types.ts"
+      - "src/lib/liff/LiffProvider.tsx"
+      - "src/lib/liff/index.ts"
+      - "src/app/line/page.tsx"
+    files_updated:
+      - ".env.example"
+      - "package.json"
+    commits:
+      - hash: "1866f84"
+        message: "feat: /toh-line - LINE LIFF Login integration"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -679,6 +705,10 @@ milestones:
     event: "Phase 3 Complete — MVP Launch!"
     status: "completed"
     details: "/toh-design + /toh-test + /toh-fix + /toh-ship สำเร็จครบ!"
+  - date: "2026-01-23"
+    event: "/toh-line COMPLETED — LINE LIFF Login!"
+    status: "completed"
+    details: "LINE Login + Profile + Auto-redirect to /chat"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -717,27 +747,6 @@ principles:
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
 previous_command:
-  command: "/toh-fix"
-  description: "Debug และแก้ไขปัญหา"
-  status: "COMPLETED"
-  started_date: "2026-01-23"
-  completed_date: "2026-01-23"
-  achievements:
-    - "✅ Build passed — no TypeScript errors"
-    - "✅ Fixed 4 lint errors (setState-in-effect)"
-    - "✅ Fixed 5 warnings (unused variables/imports)"
-    - "✅ Refactored to use useMemo instead of useEffect+setState"
-    - "✅ All 104 tests passing"
-    - "✅ Lint clean — 0 errors"
-  files_fixed:
-    - "src/app/chat/page.tsx"
-    - "src/app/dashboard/page.tsx"
-    - "src/app/course/[id]/page.tsx"
-    - "src/components/theme/ThemeProvider.tsx"
-    - "src/stores/useMemoryStore.test.ts"
-    - ".gitignore"
-
-current_command:
   command: "/toh-ship"
   description: "Deploy ขึ้น production"
   status: "COMPLETED"
@@ -750,12 +759,28 @@ current_command:
     - "✅ Deployed to Vercel (with กุนซือ + แม่ทัพ)"
     - "✅ Environment variables configured"
     - "✅ Production build verified"
+
+current_command:
+  command: "/toh-line"
+  description: "LINE Mini App integration"
+  status: "COMPLETED"
+  started_date: "2026-01-23"
+  completed_date: "2026-01-23"
+  achievements:
+    - "✅ Installed @line/liff SDK v2.27.3"
+    - "✅ Created LiffProvider component"
+    - "✅ Created /line page with LINE Login"
+    - "✅ Auto-redirect to /chat after login"
+    - "✅ Show user profile (name + picture)"
+    - "✅ Deployed and tested successfully"
   files_created:
-    - "vercel.json"
-    - ".env.example"
+    - "src/lib/liff/types.ts"
+    - "src/lib/liff/LiffProvider.tsx"
+    - "src/lib/liff/index.ts"
+    - "src/app/line/page.tsx"
   files_updated:
-    - "package.json (renamed to oracle-ai-buddy)"
-    - ".gitignore (added !.env.example)"
+    - ".env.example (added NEXT_PUBLIC_LIFF_ID)"
+    - "package.json (added @line/liff)"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
