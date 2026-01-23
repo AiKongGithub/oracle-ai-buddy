@@ -3,10 +3,21 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { ChatMessage, ChatInput, ChatSidebar } from '@/components/chat';
 import { useUserStore } from '@/stores/useUserStore';
 import { useChatStore } from '@/stores/useChatStore';
 import { mockWelcomeMessage } from '@/lib/mock-data';
+
+// API response type
+interface ChatAPIResponse {
+  message: string;
+  usage?: {
+    input_tokens: number;
+    output_tokens: number;
+  };
+  error?: string;
+}
 
 export default function ChatPage() {
   const { user, isAuthenticated, initialize: initAuth } = useUserStore();
@@ -28,7 +39,74 @@ export default function ChatPage() {
   } = useChatStore();
 
   const [showSidebar, setShowSidebar] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isFallbackMode, setIsFallbackMode] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Generate fallback AI response (when API unavailable)
+  const generateFallbackResponse = (userInput: string): string => {
+    const input = userInput.toLowerCase();
+
+    if (input.includes('สวัสดี') || input.includes('hello') || input.includes('หวัดดี')) {
+      return `สวัสดีครับ! ยินดีที่ได้พบคุณ 😊
+
+ผม **AI Buddy** พร้อมช่วยคุณเรียนรู้เกี่ยวกับ AI ครับ
+
+⚠️ *ขณะนี้อยู่ใน Fallback Mode — ตอบจาก template*
+
+มีอะไรให้ช่วยไหมครับ? 🐉`;
+    }
+
+    if (input.includes('ai') || input.includes('เอไอ') || input.includes('ปัญญาประดิษฐ์')) {
+      return `**AI (Artificial Intelligence)** คือปัญญาประดิษฐ์ครับ
+
+หลักการสำคัญที่เราใช้คือ **Human in the Loop**:
+- มนุษย์ควบคุม AI ไม่ใช่ AI ควบคุมมนุษย์
+- AI เป็นเพื่อน ไม่ใช่เจ้านาย
+- ทุก action สำคัญต้องได้รับการอนุมัติ
+
+⚠️ *Fallback Mode*
+
+ต้องการเรียนรู้เพิ่มเติมไหมครับ? 🐉`;
+    }
+
+    if (input.includes('oracle')) {
+      return `**Oracle** เป็นบริษัทเทคโนโลยีชั้นนำที่มีวิสัยทัศน์ด้าน AI ครับ
+
+ปรัชญาหลัก:
+- **AI as Creative Partner** — AI เป็นพันธมิตรสร้างสรรค์
+- **Human Oversight** — มนุษย์ดูแลตลอดเวลา
+- **Cultural Transformation** — เปลี่ยน mindset ไม่ใช่แค่ deploy tools
+
+เราใช้ปรัชญานี้ในการพัฒนา Oracle AI Buddy ครับ 🏰
+
+⚠️ *Fallback Mode*`;
+    }
+
+    if (input.includes('human') || input.includes('loop') || input.includes('ควบคุม')) {
+      return `**Human in the Loop** คือหลักการที่ให้มนุษย์มีส่วนร่วมในการตัดสินใจของ AI
+
+วิธีการ:
+1. **Approval Workflow** — User approve ก่อน AI ทำ action
+2. **Exception Handling** — มนุษย์แก้ไขเมื่อ AI ไม่แน่ใจ
+3. **Confidence Level** — แสดงความมั่นใจของ AI
+
+ใน Oracle AI Buddy เราใช้หลักการนี้ทุก action สำคัญครับ 🐉
+
+⚠️ *Fallback Mode*`;
+    }
+
+    return `ขอบคุณสำหรับข้อความครับ!
+
+ขณะนี้ผมอยู่ใน **Fallback Mode** เนื่องจาก API ยังไม่พร้อมใช้งาน
+
+สิ่งที่คุณสามารถถามได้:
+- "AI คืออะไร"
+- "Human in the Loop คืออะไร"
+- "Oracle คืออะไร"
+
+เมื่อเติม credit แล้ว ผมจะตอบได้ฉลาดขึ้นครับ 🐉`;
+  };
 
   // Initialize auth
   useEffect(() => {
@@ -92,6 +170,8 @@ export default function ChatPage() {
 
   // Handle send message
   const handleSendMessage = async (content: string) => {
+    setError(null);
+
     // Add user message
     const userMessage = {
       id: crypto.randomUUID(),
@@ -106,61 +186,66 @@ export default function ChatPage() {
       await saveMessage(currentSession.id, 'user', content);
     }
 
-    // Simulate AI response (mock)
+    // Call Claude API
     setTyping(true);
 
-    setTimeout(async () => {
+    try {
+      // Prepare messages for API (include conversation history, exclude system messages)
+      const apiMessages = [...messages, userMessage]
+        .filter((m) => m.role !== 'system')
+        .map((m) => ({
+          role: m.role as 'user' | 'assistant',
+          content: m.content,
+        }));
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: apiMessages }),
+      });
+
+      const data: ChatAPIResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to get response');
+      }
+
       const aiResponse = {
         id: crypto.randomUUID(),
         role: 'assistant' as const,
-        content: generateAIResponse(content),
+        content: data.message,
         timestamp: new Date(),
       };
       addMessage(aiResponse);
-      setTyping(false);
 
       // Save AI response to Supabase
       if (currentSession?.id) {
         await saveMessage(currentSession.id, 'assistant', aiResponse.content);
       }
-    }, 1000 + Math.random() * 1000);
-  };
 
-  // Generate mock AI response
-  const generateAIResponse = (userInput: string): string => {
-    const input = userInput.toLowerCase();
+      console.log('[BUDDY-DATA] Token usage:', data.usage);
+    } catch (err) {
+      console.error('[BUDDY-ERROR] Chat error:', err);
 
-    if (input.includes('สวัสดี') || input.includes('hello')) {
-      return `สวัสดีครับ! ยินดีที่ได้พบคุณ 😊
+      // Switch to fallback mode and use mock response
+      setIsFallbackMode(true);
+      console.log('[BUDDY-ACTION] Switching to Fallback Mode');
 
-ผม **AI Buddy** พร้อมช่วยคุณเรียนรู้เกี่ยวกับ AI ครับ
+      const fallbackResponse = {
+        id: crypto.randomUUID(),
+        role: 'assistant' as const,
+        content: generateFallbackResponse(content),
+        timestamp: new Date(),
+      };
+      addMessage(fallbackResponse);
 
-มีอะไรให้ช่วยไหมครับ?`;
+      // Save fallback response to Supabase
+      if (currentSession?.id) {
+        await saveMessage(currentSession.id, 'assistant', fallbackResponse.content);
+      }
+    } finally {
+      setTyping(false);
     }
-
-    if (input.includes('ai') || input.includes('เอไอ')) {
-      return `**AI (Artificial Intelligence)** คือปัญญาประดิษฐ์ครับ
-
-หลักการสำคัญที่เราใช้คือ **Human in the Loop** — ให้มนุษย์ควบคุม AI ไม่ใช่ให้ AI ควบคุมมนุษย์
-
-ต้องการเรียนรู้เพิ่มเติมไหมครับ? 🐉`;
-    }
-
-    if (input.includes('oracle')) {
-      return `**Oracle** เป็นบริษัทเทคโนโลยีชั้นนำที่มีวิสัยทัศน์ด้าน AI ที่น่าสนใจครับ
-
-- AI as Creative Partner
-- Human Oversight ตลอดเวลา
-- Cultural Transformation
-
-เราใช้ปรัชญานี้ในการพัฒนา Oracle AI Buddy ครับ 🏰`;
-    }
-
-    return `ขอบคุณสำหรับข้อความครับ!
-
-ผมกำลังเรียนรู้เพื่อตอบคำถามได้ดียิ่งขึ้น ในอนาคตเมื่อเชื่อมต่อกับ Claude API แล้ว ผมจะสามารถช่วยคุณได้มากขึ้นครับ
-
-**[BUDDY-ACTION]** รอการเชื่อมต่อ API 🐉`;
   };
 
   return (
@@ -214,6 +299,27 @@ export default function ChatPage() {
             </nav>
           </div>
         </header>
+
+        {/* Fallback Mode Banner */}
+        {isFallbackMode && (
+          <div className="mx-4 mt-2">
+            <Card className="border-amber-200 bg-amber-50 dark:bg-amber-950/30">
+              <CardContent className="flex items-center justify-between p-3">
+                <p className="text-sm text-amber-700 dark:text-amber-300">
+                  ⚡ Fallback Mode — AI ตอบจาก template (API ยังไม่พร้อม)
+                </p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsFallbackMode(false)}
+                  className="text-amber-700 hover:text-amber-900"
+                >
+                  ลองใหม่
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Messages */}
         <main className="flex-1 overflow-y-auto p-4">
