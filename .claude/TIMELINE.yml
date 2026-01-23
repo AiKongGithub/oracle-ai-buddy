@@ -1,6 +1,6 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-ui Chat + Progress Completed)
+# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-ui COMPLETED!)
 
 project:
   name: "Oracle AI Buddy"
@@ -53,12 +53,13 @@ toh_13_commands:
   - id: 4
     command: "/toh-ui"
     description: "สร้าง UI components และ pages"
-    status: "next"
+    status: "completed"
+    completed_date: "2026-01-23"
     phase: 2
   - id: 5
     command: "/toh-dev"
     description: "เพิ่ม logic, state, functionality"
-    status: "pending"
+    status: "next"
     phase: 2
   - id: 6
     command: "/toh-design"
@@ -127,9 +128,10 @@ phases:
     commands: ["/toh-connect", "/toh-ui", "/toh-dev"]
     deliverables:
       - "Supabase integration ✅"
-      - "Learning Dashboard"
-      - "AI Chat Interface"
-      - "Progress Tracker"
+      - "Learning Dashboard ✅"
+      - "AI Chat Interface ✅"
+      - "Progress Tracker ✅"
+      - "Course Detail Page ✅"
       - "Human-in-Loop flow"
   phase_3:
     name: "Polish"
@@ -387,6 +389,29 @@ sessions:
       - hash: "bba3d31"
         message: "feat(progress): add progress components and improve progress page"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-4"
+    summary: "/toh-ui COMPLETED — Course Detail Page สำเร็จ!"
+    context: "แม่ทัพสั่งจูล่งทำ Course Detail Page เป็นภารกิจสุดท้ายของ /toh-ui"
+    completed:
+      - "สร้าง CourseHeader component (gradient header + progress)"
+      - "สร้าง ModuleList component (expandable modules/lessons)"
+      - "สร้าง LessonViewer component (content + navigation)"
+      - "สร้าง dynamic route /course/[id]"
+      - "เชื่อม Supabase learning_progress"
+      - "Navigation: next/prev lesson"
+      - "Lesson completion tracking"
+      - "Build test — 100% PASS"
+    files_created:
+      - "src/components/course/CourseHeader.tsx"
+      - "src/components/course/ModuleList.tsx"
+      - "src/components/course/LessonViewer.tsx"
+      - "src/components/course/index.ts"
+      - "src/app/course/[id]/page.tsx"
+    commits:
+      - hash: "81fd852"
+        message: "feat(course): add course detail page with lesson viewer"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -409,6 +434,10 @@ milestones:
     event: "/toh-ui Chat + Progress Complete"
     status: "completed"
     details: "Chat Interface + Progress Page สำเร็จ"
+  - date: "2026-01-23"
+    event: "/toh-ui COMPLETED — All UI Done!"
+    status: "completed"
+    details: "Dashboard + Chat + Progress + Course Detail สำเร็จครบ!"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -446,16 +475,27 @@ principles:
       - "[BUDDY-ACTION] — User action"
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
-next_actions:
+previous_command:
   command: "/toh-ui"
   description: "สร้าง UI components และ pages"
-  completed:
-    - "✅ Learning Dashboard"
-    - "✅ AI Chat Interface"
-    - "✅ Progress Tracker"
-  remaining:
-    - "Course Detail Page"
-    - "Human-in-Loop Approval UI"
+  status: "COMPLETED"
+  completed_date: "2026-01-23"
+  achievements:
+    - "✅ Learning Dashboard (DashboardHeader, StatsCard, CourseCard, QuickActions)"
+    - "✅ AI Chat Interface (ChatMessage, ChatInput, ChatSidebar)"
+    - "✅ Progress Tracker (ProgressOverview, CourseProgressCard, LearningStreak)"
+    - "✅ Course Detail Page (CourseHeader, ModuleList, LessonViewer)"
+  total_components: 14
+  total_pages: 4
+
+next_actions:
+  command: "/toh-dev"
+  description: "เพิ่ม logic, state, functionality"
+  tasks:
+    - "AI Buddy conversation flow"
+    - "Human-in-Loop approval system"
+    - "Memory system for AI"
+    - "Real-time progress sync"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
