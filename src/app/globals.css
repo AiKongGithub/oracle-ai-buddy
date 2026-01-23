@@ -12,9 +12,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Fonts */
+  /* Fonts - Thai First! */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-thai: var(--font-thai);
 
   /* Pink Castle - Primary Colors */
   --color-castle-50: var(--castle-50);
@@ -240,5 +241,30 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-thai), var(--font-geist-sans), system-ui, sans-serif;
   }
+
+  /* Thai-specific typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Better line height for Thai text */
+  p, li, span {
+    line-height: 1.75;
+  }
+}
+
+/* Font utility classes */
+.font-thai {
+  font-family: var(--font-thai), system-ui, sans-serif;
+}
+
+.font-sans {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
