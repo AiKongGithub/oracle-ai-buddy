@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { DashboardHeader, StatsCard, CourseCard, QuickActions } from '@/components/dashboard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,8 +20,6 @@ export default function DashboardPage() {
     unsubscribeFromProgress,
   } = useProgressStore();
 
-  const [courseProgress, setCourseProgress] = useState<Record<string, number>>({});
-
   // Initialize auth
   useEffect(() => {
     initialize();
@@ -40,9 +38,9 @@ export default function DashboardPage() {
     }
   }, [user?.id, fetchProgress, subscribeToProgress, unsubscribeFromProgress]);
 
-  // Calculate course progress percentages
-  useEffect(() => {
-    const newCourseProgress: Record<string, number> = {};
+  // Calculate course progress percentages using useMemo
+  const courseProgress = useMemo(() => {
+    const result: Record<string, number> = {};
 
     progress.forEach((p) => {
       const course = mockCourses.find((c) => c.id === p.course_id);
@@ -52,13 +50,13 @@ export default function DashboardPage() {
           0
         );
         const completed = p.completed_lessons?.length || 0;
-        newCourseProgress[p.course_id] = totalLessons > 0
+        result[p.course_id] = totalLessons > 0
           ? Math.round((completed / totalLessons) * 100)
           : 0;
       }
     });
 
-    setCourseProgress(newCourseProgress);
+    return result;
   }, [progress]);
 
   // Build stats object from progressStats

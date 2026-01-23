@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -12,46 +12,48 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// Get stored theme (runs only on client)
+const getStoredTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'system';
+  const stored = localStorage.getItem('theme') as Theme | null;
+  return stored || 'system';
+};
+
+// Get system preference
+const getSystemTheme = (): 'light' | 'dark' => {
+  if (typeof window === 'undefined') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+  // Initialize with stored theme using lazy initialization
+  const [theme, setThemeState] = useState<Theme>(getStoredTheme);
   const [mounted, setMounted] = useState(false);
 
-  // Get system preference
-  const getSystemTheme = (): 'light' | 'dark' => {
+  // Compute resolved theme
+  const resolvedTheme = theme === 'system' ? getSystemTheme() : theme;
+
+  // Wrapped setTheme that also persists to localStorage
+  const setTheme = useCallback((newTheme: Theme) => {
+    setThemeState(newTheme);
     if (typeof window !== 'undefined') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
+      localStorage.setItem('theme', newTheme);
     }
-    return 'light';
-  };
+  }, []);
 
-  // Apply theme to document
-  const applyTheme = (resolvedTheme: 'light' | 'dark') => {
-    const root = document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add(resolvedTheme);
-    setResolvedTheme(resolvedTheme);
-  };
-
-  // Initialize theme from localStorage
+  // Mark as mounted on client (hydration pattern - valid use case)
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') as Theme | null;
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
-  // Handle theme changes
+  // Apply theme to document (DOM effect) - only after mounted
   useEffect(() => {
     if (!mounted) return;
-
-    const resolved = theme === 'system' ? getSystemTheme() : theme;
-    applyTheme(resolved);
-    localStorage.setItem('theme', theme);
-  }, [theme, mounted]);
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(resolvedTheme);
+  }, [resolvedTheme, mounted]);
 
   // Listen for system theme changes
   useEffect(() => {
@@ -60,7 +62,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
       if (theme === 'system') {
-        applyTheme(getSystemTheme());
+        // Force re-render to update resolved theme
+        setThemeState('system');
       }
     };
 
@@ -68,7 +71,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme, mounted]);
 
-  // Prevent flash
+  // Prevent flash during SSR
   if (!mounted) {
     return null;
   }

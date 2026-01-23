@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { CourseHeader, ModuleList, LessonViewer } from '@/components/course';
 import { useUserStore } from '@/stores/useUserStore';
 import { supabase } from '@/lib/supabase';
 import { mockCourses } from '@/lib/mock-data';
-import type { Course, Lesson } from '@/types';
+import type { Lesson } from '@/types';
 import type { LearningProgress } from '@/types/database';
 
 export default function CoursePage() {
@@ -18,32 +18,47 @@ export default function CoursePage() {
   const courseId = params.id as string;
 
   const { user, isAuthenticated, isLoading: authLoading, initialize } = useUserStore();
-  const [course, setCourse] = useState<Course | null>(null);
   const [progress, setProgress] = useState<LearningProgress | null>(null);
-  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
+
+  // Find course from mock data using useMemo
+  const course = useMemo(() => {
+    return mockCourses.find((c) => c.id === courseId) || null;
+  }, [courseId]);
+
+  // Get first lesson as default
+  const defaultLesson = useMemo(() => {
+    if (course && course.modules.length > 0 && course.modules[0].lessons.length > 0) {
+      return course.modules[0].lessons[0];
+    }
+    return null;
+  }, [course]);
+
+  // Compute selected lesson
+  const selectedLesson = useMemo(() => {
+    if (!course) return null;
+    if (selectedLessonId) {
+      for (const mod of course.modules) {
+        const found = mod.lessons.find((l) => l.id === selectedLessonId);
+        if (found) return found;
+      }
+    }
+    return defaultLesson;
+  }, [course, selectedLessonId, defaultLesson]);
+
+  // Helper to set selected lesson
+  const setSelectedLesson = (lesson: Lesson | null) => {
+    setSelectedLessonId(lesson?.id || null);
+  };
 
   // Initialize auth
   useEffect(() => {
     initialize();
   }, [initialize]);
 
-  // Find course from mock data
-  useEffect(() => {
-    const foundCourse = mockCourses.find((c) => c.id === courseId);
-    if (foundCourse) {
-      setCourse(foundCourse);
-      // Select first lesson by default
-      if (foundCourse.modules.length > 0 && foundCourse.modules[0].lessons.length > 0) {
-        setSelectedLesson(foundCourse.modules[0].lessons[0]);
-      }
-    }
-    setLoading(false);
-  }, [courseId]);
-
   // Fetch progress from Supabase
   useEffect(() => {
-    async function fetchProgress() {
+    async function fetchProgressData() {
       if (!user?.id || !courseId) return;
 
       try {
@@ -63,9 +78,9 @@ export default function CoursePage() {
     }
 
     if (!authLoading && user) {
-      fetchProgress();
+      fetchProgressData();
     }
-  }, [user?.id, courseId, authLoading]);
+  }, [user, courseId, authLoading]);
 
   // Calculate progress
   const calculateProgress = () => {
@@ -144,10 +159,10 @@ export default function CoursePage() {
   const progressData = calculateProgress();
   const allLessons = getAllLessons();
   const currentLessonIndex = allLessons.findIndex((l) => l.id === selectedLesson?.id);
-  const isPageLoading = authLoading || loading;
+  const isPageLoading = authLoading;
 
   // Course not found
-  if (!loading && !course) {
+  if (!course) {
     return (
       <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center">
         <Card className="max-w-md">

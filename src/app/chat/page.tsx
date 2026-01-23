@@ -50,10 +50,9 @@ export default function ChatPage() {
     setCurrentSession,
     setMessages,
   } = useChatStore();
-  const { fetchMemories, getContextForAI, addMemory } = useMemoryStore();
+  const { fetchMemories, getContextForAI } = useMemoryStore();
 
   const [showSidebar, setShowSidebar] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [isFallbackMode, setIsFallbackMode] = useState(false);
   const [pendingApproval, setPendingApproval] = useState<PendingApproval | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -296,8 +295,6 @@ export default function ChatPage() {
 
   // Handle send message
   const handleSendMessage = async (content: string) => {
-    setError(null);
-
     // Add user message
     const userMessage = {
       id: crypto.randomUUID(),

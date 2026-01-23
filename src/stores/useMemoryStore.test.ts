@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { useMemoryStore, type Memory, type MemoryType } from './useMemoryStore';
+import { useMemoryStore, type Memory } from './useMemoryStore';
 
 // Mock Supabase
 vi.mock('@/lib/supabase', () => ({
