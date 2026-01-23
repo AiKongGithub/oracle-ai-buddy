@@ -63,15 +63,15 @@ Oracle มองว่า **AI ไม่ได้มาแทนที่มน�
 | 1 | `/toh-help` | แสดงคำสั่งทั้งหมด | ✅ |
 | 2 | `/toh-vibe` | สร้างโปรเจกต์ใหม่ | ✅ |
 | 3 | `/toh-plan` | วิเคราะห์และวางแผน | ✅ |
-| 4 | `/toh-ui` | สร้าง UI components | 🎯 ถัดไป |
-| 5 | `/toh-dev` | เพิ่ม logic, state | ⏳ |
-| 6 | `/toh-design` | ปรับปรุง design | ⏳ |
-| 7 | `/toh-test` | รัน tests | ⏳ |
+| 4 | `/toh-ui` | สร้าง UI components | ✅ |
+| 5 | `/toh-dev` | เพิ่ม logic, state | ✅ |
+| 6 | `/toh-design` | ปรับปรุง design | ✅ |
+| 7 | `/toh-test` | รัน tests (104 tests) | ✅ |
 | 8 | `/toh-connect` | เชื่อมต่อ Supabase | ✅ |
-| 9 | `/toh-fix` | Debug และแก้ไข | ⏳ |
-| 10 | `/toh-ship` | Deploy production | ⏳ |
-| 11 | `/toh-line` | LINE Mini App | 🔮 |
-| 12 | `/toh-mobile` | Mobile App | 🔮 |
+| 9 | `/toh-fix` | Debug และแก้ไข | ✅ |
+| 10 | `/toh-ship` | Deploy production | ✅ |
+| 11 | `/toh-line` | LINE Mini App | ✅ |
+| 12 | `/toh-mobile` | Mobile App | 🎯 ถัดไป |
 | 13 | `/toh-protect` | Security audit | 🔮 |
 
 ---
