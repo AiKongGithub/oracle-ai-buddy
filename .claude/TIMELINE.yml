@@ -1,6 +1,6 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-dev IN PROGRESS)
+# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-dev COMPLETED!)
 
 project:
   name: "Oracle AI Buddy"
@@ -59,13 +59,13 @@ toh_13_commands:
   - id: 5
     command: "/toh-dev"
     description: "เพิ่ม logic, state, functionality"
-    status: "in_progress"
-    started_date: "2026-01-23"
+    status: "completed"
+    completed_date: "2026-01-23"
     phase: 2
   - id: 6
     command: "/toh-design"
     description: "ปรับปรุง design ให้ professional"
-    status: "pending"
+    status: "next"
     phase: 3
   - id: 7
     command: "/toh-test"
@@ -125,7 +125,8 @@ phases:
   phase_2:
     name: "Core Development"
     duration: "สัปดาห์ 3-4"
-    status: "in_progress"
+    status: "completed"
+    completed_date: "2026-01-23"
     commands: ["/toh-connect", "/toh-ui", "/toh-dev"]
     deliverables:
       - "Supabase integration ✅"
@@ -133,11 +134,13 @@ phases:
       - "AI Chat Interface ✅"
       - "Progress Tracker ✅"
       - "Course Detail Page ✅"
-      - "Human-in-Loop flow"
+      - "Human-in-Loop flow ✅"
+      - "AI Memory System ✅"
+      - "Real-time Progress ✅"
   phase_3:
     name: "Polish"
     duration: "สัปดาห์ 5+"
-    status: "pending"
+    status: "next"
     commands: ["/toh-design", "/toh-test", "/toh-fix", "/toh-ship"]
     deliverables:
       - "Pink Castle theme"
@@ -189,7 +192,8 @@ oracle_learnings:
 business_plan:
   q1_2026:
     goal: "MVP - Learning Dashboard"
-    status: "in_progress"
+    status: "on_track"
+    progress: "Phase 2 completed, Phase 3 starting"
   q2_2026:
     goal: "LINE Bot Integration"
     status: "planned"
@@ -470,6 +474,27 @@ sessions:
       - hash: "2ff88ae"
         message: "feat(memory): add AI Memory System"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-7"
+    summary: "/toh-dev COMPLETED — Real-time Progress!"
+    context: "แม่ทัพสั่งจูล่งเพิ่ม Real-time Progress เป็น task สุดท้าย"
+    completed:
+      - "ออกแบบ Real-time Progress flow"
+      - "สร้าง useProgressStore (Zustand + Supabase Realtime)"
+      - "Optimistic updates สำหรับ instant UI"
+      - "Auto-calculate stats (XP, streak, progress %)"
+      - "Subscribe/unsubscribe pattern"
+      - "อัพเดท Dashboard page"
+      - "Build test — 100% PASS"
+      - "/toh-dev COMPLETED!"
+    files_created:
+      - "src/stores/useProgressStore.ts"
+    files_updated:
+      - "src/app/dashboard/page.tsx"
+    commits:
+      - hash: "53fcd3c"
+        message: "feat(progress): add Real-time Progress sync"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -504,6 +529,10 @@ milestones:
     event: "/toh-dev Memory System — AI จำได้"
     status: "completed"
     details: "useMemoryStore + user_memories table + 5 memory types"
+  - date: "2026-01-23"
+    event: "/toh-dev COMPLETED — All Logic Done!"
+    status: "completed"
+    details: "AI Buddy + Human-in-Loop + Memory + Real-time Progress"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -542,38 +571,38 @@ principles:
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
 previous_command:
-  command: "/toh-ui"
-  description: "สร้าง UI components และ pages"
-  status: "COMPLETED"
-  completed_date: "2026-01-23"
-  achievements:
-    - "✅ Learning Dashboard (DashboardHeader, StatsCard, CourseCard, QuickActions)"
-    - "✅ AI Chat Interface (ChatMessage, ChatInput, ChatSidebar)"
-    - "✅ Progress Tracker (ProgressOverview, CourseProgressCard, LearningStreak)"
-    - "✅ Course Detail Page (CourseHeader, ModuleList, LessonViewer)"
-  total_components: 14
-  total_pages: 4
-
-current_command:
   command: "/toh-dev"
   description: "เพิ่ม logic, state, functionality"
-  status: "IN_PROGRESS"
+  status: "COMPLETED"
   started_date: "2026-01-23"
-  completed_tasks:
+  completed_date: "2026-01-23"
+  achievements:
     - "✅ AI Buddy conversation flow (Claude API + Fallback Mode)"
     - "✅ Human-in-Loop approval system (ApprovalCard + action detection)"
     - "✅ Memory system for AI (useMemoryStore + 5 memory types)"
-  remaining_tasks:
-    - "⏳ Real-time progress sync"
+    - "✅ Real-time progress sync (useProgressStore + Supabase Realtime)"
   new_components:
     - "ApprovalCard"
   new_stores:
     - "useMemoryStore"
+    - "useProgressStore"
   new_files:
     - "src/app/api/chat/route.ts"
     - "src/components/approval/ApprovalCard.tsx"
     - "src/stores/useMemoryStore.ts"
+    - "src/stores/useProgressStore.ts"
     - "supabase/migrations/002_user_memories.sql"
+
+current_command:
+  command: "/toh-design"
+  description: "ปรับปรุง design ให้ professional"
+  status: "NEXT"
+  planned_tasks:
+    - "⏳ Pink Castle theme refinement"
+    - "⏳ Responsive design improvements"
+    - "⏳ Animation และ transitions"
+    - "⏳ Dark mode polish"
+    - "⏳ Typography และ spacing"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
