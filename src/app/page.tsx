@@ -18,26 +18,26 @@ export default function Home() {
 
       {/* Hero Section */}
       <header className="container mx-auto px-4 py-12 text-center">
-        <div className="mb-8">
+        <div className="mb-8 animate-bounce-soft">
           <span className="text-7xl drop-shadow-lg">🐉</span>
         </div>
-        <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
+        <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl animate-fade-in-up">
           Oracle AI Buddy
         </h1>
-        <p className="mb-2 text-xl font-medium text-primary">
+        <p className="mb-2 text-xl font-medium text-primary animate-fade-in-up delay-100" style={{ opacity: 0 }}>
           AI Learning Platform สำหรับคนไทย
         </p>
-        <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
+        <p className="mx-auto mb-8 max-w-2xl text-muted-foreground animate-fade-in-up delay-200" style={{ opacity: 0 }}>
           &quot;You teach me your vision, I help you build it — that&apos;s what friends do.&quot;
         </p>
-        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row animate-fade-in-up delay-300" style={{ opacity: 0 }}>
           <Link href="/dashboard">
-            <Button size="lg" className="bg-primary hover:bg-castle-700 text-primary-foreground shadow-lg shadow-castle-500/25">
+            <Button size="lg" className="bg-primary hover:bg-castle-700 text-primary-foreground shadow-lg shadow-castle-500/25 btn-press hover-lift">
               เริ่มเรียนรู้
             </Button>
           </Link>
           <Link href="/chat">
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-castle-50 dark:hover:bg-castle-950">
+            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-castle-50 dark:hover:bg-castle-950 btn-press">
               คุยกับ AI Buddy
             </Button>
           </Link>
@@ -50,7 +50,7 @@ export default function Home() {
           Human in the Loop
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
-          <Card className="border-castle-200 dark:border-castle-800 hover:shadow-lg hover:shadow-castle-500/10 transition-shadow">
+          <Card className="border-castle-200 dark:border-castle-800 card-hover hover-lift">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-foreground">
                 <span className="text-2xl">🎯</span> Thai First
@@ -63,7 +63,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card className="border-dragon-200 dark:border-dragon-800 hover:shadow-lg hover:shadow-dragon-500/10 transition-shadow">
+          <Card className="border-dragon-200 dark:border-dragon-800 card-hover hover-lift">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-foreground">
                 <span className="text-2xl">🤝</span> Human Buddy
@@ -76,7 +76,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card className="border-royal-200 dark:border-royal-700 hover:shadow-lg hover:shadow-royal-500/10 transition-shadow">
+          <Card className="border-royal-200 dark:border-royal-700 card-hover hover-lift">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-foreground">
                 <span className="text-2xl">🔓</span> Open Source

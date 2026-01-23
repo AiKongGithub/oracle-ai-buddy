@@ -34,7 +34,7 @@ export function CourseCard({ course, progress = 0, isNew = false }: CourseCardPr
   };
 
   return (
-    <Card className="group transition-all hover:shadow-lg hover:shadow-castle-500/10 hover:border-castle-300 dark:hover:border-castle-700">
+    <Card className="group card-hover hover-lift hover:border-castle-300 dark:hover:border-castle-700">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div>
@@ -71,7 +71,7 @@ export function CourseCard({ course, progress = 0, isNew = false }: CourseCardPr
         {/* Action Button */}
         <Link href={`/course/${course.id}`} className="block">
           <Button
-            className="w-full bg-primary hover:bg-castle-700 text-primary-foreground shadow-sm group-hover:shadow-md transition-shadow"
+            className="w-full bg-primary hover:bg-castle-700 text-primary-foreground shadow-sm group-hover:shadow-md transition-shadow btn-press"
             size="sm"
           >
             {progress > 0 ? 'เรียนต่อ' : 'เริ่มเรียน'}
