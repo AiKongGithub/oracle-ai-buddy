@@ -1,6 +1,6 @@
 # 🤝 Oracle AI Buddy Timeline — วาระจดจำยาว
 # ไฟล์นี้ใช้สำหรับ AI (จูล่ง/กุนซือ) อ่านเพื่อจำบริบทระยะยาว
-# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-design COMPLETED!)
+# อัพเดทล่าสุด: 23 มกราคม 2026 (/toh-test COMPLETED! 104 tests)
 
 project:
   name: "Oracle AI Buddy"
@@ -71,7 +71,8 @@ toh_13_commands:
   - id: 7
     command: "/toh-test"
     description: "รัน tests และ auto-fix"
-    status: "next"
+    status: "completed"
+    completed_date: "2026-01-23"
     phase: 3
   - id: 8
     command: "/toh-connect"
@@ -82,7 +83,7 @@ toh_13_commands:
   - id: 9
     command: "/toh-fix"
     description: "Debug และแก้ไขปัญหา"
-    status: "pending"
+    status: "next"
     phase: 3
   - id: 10
     command: "/toh-ship"
@@ -531,6 +532,44 @@ sessions:
       - hash: "b0b65c6"
         message: "feat(design): add responsive mobile navigation"
     status: "completed"
+  - date: "2026-01-23"
+    time: "night-9"
+    summary: "/toh-test COMPLETED — 104 Tests Passing!"
+    context: "แม่ทัพสั่งจูล่งเขียน tests"
+    completed:
+      - "ติดตั้ง Vitest + @testing-library/react + jsdom"
+      - "ติดตั้ง @vitest/coverage-v8"
+      - "สร้าง vitest.config.ts"
+      - "สร้าง src/test/setup.ts (mocks)"
+      - "เขียน Store tests (40 tests)"
+      - "เขียน Component tests (51 tests)"
+      - "เขียน API route tests (13 tests)"
+      - "รวมทั้งหมด 104 tests passing"
+      - "Build test — 100% PASS"
+      - "/toh-test COMPLETED!"
+    files_created:
+      - "vitest.config.ts"
+      - "src/test/setup.ts"
+      - "src/stores/useUserStore.test.ts"
+      - "src/stores/useChatStore.test.ts"
+      - "src/stores/useMemoryStore.test.ts"
+      - "src/stores/useProgressStore.test.ts"
+      - "src/components/theme/ThemeProvider.test.tsx"
+      - "src/components/dashboard/CourseCard.test.tsx"
+      - "src/components/dashboard/DashboardHeader.test.tsx"
+      - "src/components/chat/ChatInput.test.tsx"
+      - "src/app/api/chat/route.test.ts"
+    test_coverage:
+      total_tests: 104
+      store_tests: 40
+      component_tests: 51
+      api_tests: 13
+      coverage_statements: "54%"
+      coverage_branches: "48%"
+    commits:
+      - hash: "7293e4e"
+        message: "test: add comprehensive test suite with Vitest"
+    status: "completed"
 
 milestones:
   - date: "2026-01-22"
@@ -573,6 +612,10 @@ milestones:
     event: "/toh-design COMPLETED — Pink Castle Theme!"
     status: "completed"
     details: "Color palette + Thai font + Animations + Dark mode + Responsive"
+  - date: "2026-01-23"
+    event: "/toh-test COMPLETED — 104 Tests!"
+    status: "completed"
+    details: "Vitest + 40 store tests + 51 component tests + 13 API tests"
   - date: "2026-02-28"
     event: "Phase 2 Complete — Core Development"
     status: "target"
@@ -611,35 +654,34 @@ principles:
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
 previous_command:
-  command: "/toh-design"
-  description: "ปรับปรุง design ให้ professional"
+  command: "/toh-test"
+  description: "รัน tests และ auto-fix"
   status: "COMPLETED"
   started_date: "2026-01-23"
   completed_date: "2026-01-23"
   achievements:
-    - "✅ Pink Castle Theme (castle, dragon, royal color palettes)"
-    - "✅ IBM Plex Sans Thai typography"
-    - "✅ Animation system (8 keyframes + hover effects)"
-    - "✅ Dark Mode Toggle (ThemeProvider + localStorage)"
-    - "✅ Responsive mobile navigation"
-  new_components:
-    - "ThemeProvider"
-    - "ThemeToggle"
+    - "✅ Setup Vitest testing framework"
+    - "✅ Store tests (40 tests): useUserStore, useChatStore, useMemoryStore, useProgressStore"
+    - "✅ Component tests (51 tests): ThemeProvider, CourseCard, ChatInput, DashboardHeader"
+    - "✅ API route tests (13 tests): /api/chat with Anthropic mock"
+    - "✅ 104 tests total — ALL PASSING"
   new_files:
-    - "src/components/theme/ThemeProvider.tsx"
-    - "src/components/theme/ThemeToggle.tsx"
-    - "src/components/theme/index.ts"
+    - "vitest.config.ts"
+    - "src/test/setup.ts"
+    - "src/stores/*.test.ts (4 files)"
+    - "src/components/**/*.test.tsx (4 files)"
+    - "src/app/api/chat/route.test.ts"
 
 current_command:
-  command: "/toh-test"
-  description: "รัน tests และ auto-fix"
+  command: "/toh-fix"
+  description: "Debug และแก้ไขปัญหา"
   status: "NEXT"
   planned_tasks:
-    - "⏳ Setup testing framework (Vitest/Jest)"
-    - "⏳ Write unit tests for stores"
-    - "⏳ Write component tests"
-    - "⏳ Integration tests for API routes"
-    - "⏳ E2E tests (optional)"
+    - "⏳ Check for any runtime errors"
+    - "⏳ Fix any TypeScript errors"
+    - "⏳ Optimize performance"
+    - "⏳ Code cleanup"
+    - "⏳ Verify all features work correctly"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
