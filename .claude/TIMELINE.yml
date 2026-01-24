@@ -777,6 +777,12 @@ current_command:
     - "✅ All screens created (Landing, Dashboard, Chat, Progress, Profile, Login)"
     - "✅ TypeScript type check passed"
     - "✅ Expo doctor 17/17 checks passed"
+    - "✅ Push to GitHub — https://github.com/AiKongGithub/oracle-ai-buddy-mobile"
+    - "✅ Copy .env.local from web project"
+    - "✅ Add web support (react-dom, react-native-web)"
+    - "✅ Fix supabase.ts for cross-platform"
+    - "✅ Web bundled successfully (1298 modules)"
+    - "✅ Test on Browser — localhost:8081 working"
   files_created:
     - "oracle-ai-buddy-mobile/ (new repo)"
     - "src/app/_layout.tsx"
@@ -793,8 +799,13 @@ current_command:
     - "src/lib/supabase.ts"
     - "src/types/index.ts"
     - "src/types/database.ts"
+    - ".env.local (Supabase credentials)"
+  commits:
+    - hash: "1816622"
+      message: "feat: /toh-mobile - Initial Expo + React Native setup"
+    - hash: "dffee4c"
+      message: "fix: add web support dependencies and fix supabase client"
   next_steps:
-    - "⏳ Push to GitHub"
     - "⏳ Test on Expo Go (Android/iOS)"
     - "⏳ Build APK/IPA with EAS"
     - "⏳ Connect to production Supabase"
