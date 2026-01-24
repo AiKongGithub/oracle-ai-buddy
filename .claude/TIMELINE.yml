@@ -747,20 +747,6 @@ principles:
       - "[BUDDY-ERROR] — เกิดข้อผิดพลาด"
 
 previous_command:
-  command: "/toh-ship"
-  description: "Deploy ขึ้น production"
-  status: "COMPLETED"
-  started_date: "2026-01-23"
-  completed_date: "2026-01-23"
-  achievements:
-    - "✅ Build passed — production ready"
-    - "✅ Created vercel.json with security headers"
-    - "✅ Created .env.example template"
-    - "✅ Deployed to Vercel (with กุนซือ + แม่ทัพ)"
-    - "✅ Environment variables configured"
-    - "✅ Production build verified"
-
-current_command:
   command: "/toh-line"
   description: "LINE Mini App integration"
   status: "COMPLETED"
@@ -773,14 +759,45 @@ current_command:
     - "✅ Auto-redirect to /chat after login"
     - "✅ Show user profile (name + picture)"
     - "✅ Deployed and tested successfully"
+
+current_command:
+  command: "/toh-mobile"
+  description: "Expo / React Native app"
+  status: "IN_PROGRESS"
+  started_date: "2026-01-24"
+  achievements:
+    - "✅ Created oracle-ai-buddy-mobile repo (separate from web)"
+    - "✅ Expo SDK 54 + TypeScript setup"
+    - "✅ Expo Router (file-based navigation)"
+    - "✅ NativeWind (Tailwind CSS for RN)"
+    - "✅ Zustand stores (user, chat, progress)"
+    - "✅ Supabase integration"
+    - "✅ LINE Login support"
+    - "✅ Pink Castle theme"
+    - "✅ All screens created (Landing, Dashboard, Chat, Progress, Profile, Login)"
+    - "✅ TypeScript type check passed"
+    - "✅ Expo doctor 17/17 checks passed"
   files_created:
-    - "src/lib/liff/types.ts"
-    - "src/lib/liff/LiffProvider.tsx"
-    - "src/lib/liff/index.ts"
-    - "src/app/line/page.tsx"
-  files_updated:
-    - ".env.example (added NEXT_PUBLIC_LIFF_ID)"
-    - "package.json (added @line/liff)"
+    - "oracle-ai-buddy-mobile/ (new repo)"
+    - "src/app/_layout.tsx"
+    - "src/app/index.tsx (Landing)"
+    - "src/app/login.tsx"
+    - "src/app/(tabs)/_layout.tsx"
+    - "src/app/(tabs)/index.tsx (Dashboard)"
+    - "src/app/(tabs)/chat.tsx"
+    - "src/app/(tabs)/progress.tsx"
+    - "src/app/(tabs)/profile.tsx"
+    - "src/stores/useUserStore.ts"
+    - "src/stores/useChatStore.ts"
+    - "src/stores/useProgressStore.ts"
+    - "src/lib/supabase.ts"
+    - "src/types/index.ts"
+    - "src/types/database.ts"
+  next_steps:
+    - "⏳ Push to GitHub"
+    - "⏳ Test on Expo Go (Android/iOS)"
+    - "⏳ Build APK/IPA with EAS"
+    - "⏳ Connect to production Supabase"
 
 ai_instructions: |
   จูล่ง: อ่านไฟล์นี้เมื่อเริ่มต้น session ใหม่
